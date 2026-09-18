@@ -1,0 +1,90 @@
+--------------------------------------------------------------------------------
+JobId          : C6221215001495-0-680b2a31
+Name           : 5xpr_Hypothesis_26
+Program        : 
+Host           : C6221215001495
+Dir            : /home/weili/cx/ETB/5xpr_Hypothesis_26
+HostEntry      : localhost
+JobHost        : C6221215001495
+JobDir         : /home/weili/Programs/schrodinger2021/scratch/weili/5xpr_Hypothesis_26
+JobSchrodinger : /home/weili/Programs/schrodinger2021
+Commandline    : /home/weili/Programs/schrodinger2021/utilities/epharmacophores -rec_file 5xpr_Hypothesis_26-receptor.maegz -lig_file 5xpr_Hypothesis_26-ligand.maegz -site_center=-31.89,5.49,11.20 -in_place -j 5xpr_Hypothesis_26 -f 7 -site_dist 2.0 -pair_dist 4.0 -xvol -scale 0.5 -buff 2.0 -limit 5.0 -HOST localhost:128 -PROJ /home/weili/.schrodinger/tmp/Tmp_24Apr2025_2224_25050 -VIEWNAME phase.phase_gui_dir.phase_workflows.AutoComplexWorkflow -DISP append -TMPLAUNCHDIR
+StartTime      : 2025-04-25-14:22:41
+--------------------------------------------------------------------------------
+Running Epharmacophores job...
+Performing Glide auto-docking...
+Jobname: 5xpr_Hypothesis_26
+Input receptor file: 5xpr_Hypothesis_26-receptor.maegz
+Input ligand file: 5xpr_Hypothesis_26-ligand.maegz
+Grid center: -31.89,5.49,11.20
+Preparing Glide grid generation...
+Launching glide job...
+--------------------------------------------------------------------------------
+JobId          : C6221215001495-0-680b2a34
+Name           : 5xpr_Hypothesis_26-gridgen
+Program        : Glide
+Host           : C6221215001495
+Dir            : /home/weili/Programs/schrodinger2021/scratch/weili/5xpr_Hypothesis_26
+HostEntry      : localhost
+JobHost        : C6221215001495
+JobDir         : /home/weili/Programs/schrodinger2021/scratch/weili/5xpr_Hypothesis_26-gridgen
+JobSchrodinger : /home/weili/Programs/schrodinger2021
+Commandline    : /home/weili/Programs/schrodinger2021/glide 5xpr_Hypothesis_26-gridgen.in
+StartTime      : 2025-04-25-14:22:44
+--------------------------------------------------------------------------------
+Waiting for glide job to finish...
+Job runtime: 0.78 minutes
+Preparing Glide docking...
+Launching glide job...
+--------------------------------------------------------------------------------
+JobId          : C6221215001495-0-680b2a74
+Name           : 5xpr_Hypothesis_26-docking
+Program        : Glide
+Host           : C6221215001495
+Dir            : /home/weili/Programs/schrodinger2021/scratch/weili/5xpr_Hypothesis_26
+HostEntry      : localhost
+JobHost        : C6221215001495
+JobDir         : /home/weili/Programs/schrodinger2021/scratch/weili/5xpr_Hypothesis_26-docking
+JobSchrodinger : /home/weili/Programs/schrodinger2021
+Commandline    : /home/weili/Programs/schrodinger2021/glide 5xpr_Hypothesis_26-docking.in -HOST localhost:128 -NJOBS 128
+StartTime      : 2025-04-25-14:23:49
+--------------------------------------------------------------------------------
+Waiting for glide job to finish...
+Job runtime: 1.48 minutes
+Docked pose: 5xpr_Hypothesis_26-docking_pv.maegz
+Running maesubset command...
+--------------------------------------------------------------------------------
+Commandline    : /home/weili/Programs/schrodinger2021/utilities/maesubset -n 2: 5xpr_Hypothesis_26-docking_pv.maegz -o 5xpr_Hypothesis_26_selected.mae
+--------------------------------------------------------------------------------
+Running glide_sort command...
+--------------------------------------------------------------------------------
+Commandline    : /home/weili/Programs/schrodinger2021/utilities/glide_sort -o 5xpr_Hypothesis_26_selected.mae -use_prop s_m_title -noxpdes 5xpr_Hypothesis_26_selected.mae
+--------------------------------------------------------------------------------
+REPORT OF BEST 1 POSES
+
+The sorted ligand structures were written to the file
+5xpr_Hypothesis_26_selected.mae
+
+Final rankings based on s_m_title
+0 poses were rejected by the energy filters,
+    Coul+vdw Energy <=     0.0    Hbond Interaction <=     0.0    Metal Interaction <=    10.0    GlideScore <=   100.0
+(If any of the above properties is not defined for a given pose,
+the corresponding filter is not applied to that pose.)
+
+Parsing XP descriptor terms...
+Performing ChemScore receptor-ligand interaction calculations...
+[running at reduced cpu priority]
+Generating Phase features...
+Running create_molSites command...
+--------------------------------------------------------------------------------
+Commandline    : /home/weili/Programs/schrodinger2021/utilities/create_molSites -in 5xpr_Hypothesis_26_selected_merged.mae -fd /home/weili/Programs/schrodinger2021/mmshare-v5.4/bin/Linux-x86_64/../../data/pharma_feature.ini -abase 1 -out 5xpr_Hypothesis_26_all_features.csv
+--------------------------------------------------------------------------------
+create_molSites successfully completed
+
+Writing hypothesis 5xpr_Hypothesis_26.phypo...
+Creating receptor-based excluded volumes based on selected ligands...
+Total number of excluded volume spheres created = 136
+Creating excluded volumes file 5xpr_Hypothesis_26.phypo
+
+create_xvolReceptor successfully completed
+Epharmacophores generation successful.

@@ -1,0 +1,21 @@
+2026-03-19 20:55:13 [INFO] now is fold 0
+2026-03-19 21:21:40 [INFO] the best hyper-parameters settings for DNN are: {'best_lr': 0.007937564751038972, 'best_dropout': 0.3942727435942764, 'best_hidden_unit1': 128, 'best_hidden_unit2': 256, 'best_hidden_unit3': 128}
+2026-03-19 21:22:15 [INFO] {'se': [0.0], 'sp': [0.9596774193548387], 'precision': ([0.0], 238, 10, 19, 0), 'acc': [0.8913857677902621], 'mcc': [-0.054598963526103335], 'auc_roc': [0.9714770797962648]}
+2026-03-19 21:22:15 [INFO] {'se': [0.08333333333333333], 'sp': [0.9703703703703703], 'precision': ([0.2], 131, 4, 11, 1), 'acc': [0.8979591836734694], 'mcc': [0.08112086463534625], 'auc_roc': [0.8583333333333333]}
+2026-03-19 21:22:15 [INFO] now is fold 1
+2026-03-19 21:43:18 [INFO] the best hyper-parameters settings for DNN are: {'best_lr': 0.013166366814226173, 'best_dropout': 0.3582910300747077, 'best_hidden_unit1': 256, 'best_hidden_unit2': 128, 'best_hidden_unit3': 64}
+2026-03-19 21:43:44 [INFO] {'se': [0.0], 'sp': [1.0], 'precision': ([nan], 245, 0, 21, 0), 'acc': [0.9210526315789473], 'mcc': [0.0], 'auc_roc': [0.9898931000971817]}
+2026-03-19 21:43:44 [INFO] {'se': [0.0], 'sp': [1.0], 'precision': ([nan], 135, 0, 12, 0), 'acc': [0.9183673469387755], 'mcc': [0.0], 'auc_roc': [0.8700617283950617]}
+2026-03-19 21:43:44 [INFO] now is fold 2
+2026-03-19 22:08:05 [INFO] the best hyper-parameters settings for DNN are: {'best_lr': 0.028892190589289976, 'best_dropout': 0.12406117238730804, 'best_hidden_unit1': 128, 'best_hidden_unit2': 64, 'best_hidden_unit3': 256}
+2026-03-19 22:08:46 [INFO] {'se': [0.047619047619047616], 'sp': [0.9918367346938776], 'precision': ([0.3333333333333333], 243, 2, 20, 1), 'acc': [0.9172932330827067], 'mcc': [0.10075459154811564], 'auc_roc': [0.9781341107871721]}
+2026-03-19 22:08:46 [INFO] {'se': [0.0], 'sp': [1.0], 'precision': ([nan], 135, 0, 12, 0), 'acc': [0.9183673469387755], 'mcc': [0.0], 'auc_roc': [0.8462962962962963]}
+2026-03-19 22:08:46 [INFO] now is fold 3
+2026-03-19 22:29:07 [INFO] the best hyper-parameters settings for DNN are: {'best_lr': 0.015144722647767311, 'best_dropout': 0.20469099501656224, 'best_hidden_unit1': 64, 'best_hidden_unit2': 128, 'best_hidden_unit3': 64}
+2026-03-19 22:29:33 [INFO] {'se': [0.16666666666666666], 'sp': [0.9717741935483871], 'precision': ([0.3], 241, 7, 15, 3), 'acc': [0.9172932330827067], 'mcc': [0.18281271539827393], 'auc_roc': [0.9159274193548386]}
+2026-03-19 22:29:33 [INFO] {'se': [0.08333333333333333], 'sp': [0.9703703703703703], 'precision': ([0.2], 131, 4, 11, 1), 'acc': [0.8979591836734694], 'mcc': [0.08112086463534625], 'auc_roc': [0.8444444444444444]}
+2026-03-19 22:29:33 [INFO] now is fold 4
+2026-03-19 22:46:27 [INFO] the best hyper-parameters settings for DNN are: {'best_lr': 0.011737039987836073, 'best_dropout': 0.43199237640475, 'best_hidden_unit1': 512, 'best_hidden_unit2': 64, 'best_hidden_unit3': 64}
+2026-03-19 22:46:35 [INFO] {'se': [0.0], 'sp': [1.0], 'precision': ([nan], 245, 0, 21, 0), 'acc': [0.9210526315789473], 'mcc': [0.0], 'auc_roc': [0.9702623906705539]}
+2026-03-19 22:46:35 [INFO] {'se': [0.0], 'sp': [1.0], 'precision': ([nan], 135, 0, 12, 0), 'acc': [0.9183673469387755], 'mcc': [0.0], 'auc_roc': [0.9053209876543209]}
+2026-03-20 13:49:55 [INFO] now is fold 0

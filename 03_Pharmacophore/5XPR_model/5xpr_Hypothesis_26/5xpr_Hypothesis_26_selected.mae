@@ -1,0 +1,600 @@
+{
+  s_m_m2io_version
+  :::
+  2.0.0 
+} 
+
+f_m_ct {
+
+  s_m_title
+  s_m_entry_id
+  s_m_entry_name
+  s_pdb_PDB_TITLE
+  s_pdb_PDB_ID
+  r_pdb_PDB_CRYST1_a
+  r_pdb_PDB_CRYST1_b
+  r_pdb_PDB_CRYST1_c
+  r_pdb_PDB_CRYST1_alpha
+  r_pdb_PDB_CRYST1_beta
+  r_pdb_PDB_CRYST1_gamma
+  s_pdb_PDB_CRYST1_Space_Group
+  i_pdb_PDB_CRYST1_z
+  s_pdb_PDB_CLASSIFICATION
+  s_pdb_PDB_DEPOSITION_DATE
+  s_pdb_PDB_format_version
+  r_pdb_PDB_R
+  r_pdb_PDB_Rfree
+  r_pdb_PDB_RESOLUTION
+  s_pdb_PDB_EXPDTA
+  r_pdb_PDB_EXPDTA_TEMPERATURE
+  r_pdb_PDB_EXPDTA_PH
+  s_pdb_PDB_REMARK_350_Biomolecule_1_Transform_1_Chains
+  s_pdb_PDB_REMARK_350_Biomolecule_1_Transform_1_Matrix_1
+  s_m_Source_Path
+  s_m_Source_File
+  i_m_Source_File_Index
+  s_ppw_entry_id_backup
+  b_ppw_prepared
+  s_ppw_prepared_with_version
+  b_ppw_assigned_bond_orders
+  b_ppw_added_hydrogens
+  b_ppw_treated_metals
+  b_ppw_created_disulfur
+  b_ppw_deleted_far_waters
+  s_psp_EXECUTE_FUNCTION_Input_Structure_Hash
+  s_Loopbuilder_GGGSGGDEAEKL_Seq
+  s_Loopbuilder_GGGSGGDEAEKL_Homology_Source
+  s_Loopbuilder_GGGSGGDEAEKL_Homology_Stemres
+  s_Loopbuilder_GGGSGGDEAEKL_Homology_Loopres
+  s_Loopbuilder_GGGSGGDEAEKL_Homology_Seq
+  r_Loopbuilder_GGGSGGDEAEKL_Homology_Similarity
+  r_Loopbuilder_GGGSGGDEAEKL_Homology_Stem_Dist
+  r_Loopbuilder_GGGSGGDEAEKL_Homology_Stem_Beta
+  r_Loopbuilder_GGGSGGDEAEKL_Homology_Stem_Gamma
+  s_ppw_het_states
+  b_ppw_ran_protassign
+  r_i_Potential_Energy-OPLS_2005
+  r_i_RMS_Derivative-OPLS_2005
+  r_i_Max_Derivative-OPLS_2005
+  r_i_Stretch_Energy-OPLS_2005
+  r_i_Bend_Energy-OPLS_2005
+  r_i_LJ-14_Energy-OPLS_2005
+  r_i_El-14_Energy-OPLS_2005
+  r_i_Van_der_Waals_Energy-OPLS_2005
+  r_i_Electrostatic_Energy-OPLS_2005
+  r_i_Dihedral_Energy-OPLS_2005
+  r_i_target_temperature
+  b_ppw_ran_impref
+  s_m_source_file
+  i_m_source_file_index
+  i_lp_mmshare_version
+  s_epik_input
+  s_epik_cmdline
+  r_lp_tautomer_probability
+  r_epik_Ionization_Penalty
+  r_epik_Ionization_Penalty_Charging
+  r_epik_Ionization_Penalty_Neutral
+  r_epik_State_Penalty
+  r_epik_Charging_Adjusted_Penalty
+  i_epik_Tot_Q
+  i_epik_Tot_abs_Q
+  i_f3d_flags
+  s_lp_Force_Field
+  r_lp_Energy
+  b_lp_Chiralities_Consistent
+  s_lp_Variant
+  s_m_job_name
+  s_i_glide_gridfile
+  i_i_glide_lignum
+  i_i_glide_rotatable_bonds
+  r_i_docking_score
+  r_i_glide_ligand_efficiency
+  r_i_glide_ligand_efficiency_sa
+  r_i_glide_ligand_efficiency_ln
+  r_glide_XP_GScore
+  r_i_glide_gscore
+  r_i_glide_evdw
+  r_i_glide_ecoul
+  r_i_glide_energy
+  r_i_glide_einternal
+  r_i_glide_emodel
+  r_glide_XP_HBond
+  i_i_glide_confnum
+  i_i_glide_posenum
+  r_i_glide_eff_state_penalty
+  i_glide_XP_PoseRank
+  r_glide_XP_PhobEn
+  r_glide_XP_PhobEnHB
+  r_glide_XP_LowMW
+  r_glide_XP_RotPenal
+  r_glide_XP_LipophilicEvdW
+  r_glide_XP_PhobEnPairHB
+  r_glide_XP_Electro
+  r_glide_XP_Sitemap
+  r_glide_XP_Penalties
+  r_glide_XP_PiStack
+  r_glide_XP_HBPenal
+  r_glide_XP_ExposPenal
+  r_glide_XP_PiCat
+  r_glide_XP_ClBr
+  r_glide_XP_Zpotr
+  i_m_ct_format
+  :::
+  "5XPR - minimized_ligand" 
+   26 
+   5xpr.1_ligand 
+   "HUMAN ENDOTHELIN RECEPTOR TYPE-B IN COMPLEX WITH ANTAGONIST BOSENTAN" 
+   5XPR 
+   74.72
+   74.72
+   218.87
+   90
+   90
+   120
+   "P 32 2 1" 
+   6
+   "SIGNALING PROTEIN" 
+   04-JUN-17 
+   3.30 
+   0.248
+   0.297
+   3.6
+   "X-RAY DIFFRACTION" 
+   100
+   6
+   A 
+   "1.000000 0.000000 0.000000   0.000000;0.000000 1.000000 0.000000   0.000000;0.000000 0.000000 1.000000   0.000000" 
+   /home/weili/cx/ETB 
+   5xpr.pdb 
+   1
+   4 
+   1
+   2021-2 
+   1
+   1
+   1
+   1
+   1
+   4727ad879a002308513ef53a93d456e27520788cfbd3b1be245d7573 
+   GGGSGGDEAEKL 
+   2QDE 
+   A:49_A:62 
+   A:50_A:61 
+   AGDTSSWYRGET 
+   0.25
+   11.36
+   65
+   -23.69
+   eJztVrtuGzEQ/BXiap1y3ONy7+zOVdogZZBCcFxFkVwoRWDo300uH8OjgaRxgCCQquVoyeHs3I30MtjhznwJH++c3Znp687EklDOKB1KRulRCsoF5VpLnlCCjcHGYGOwMdgYbAw2BhuDzYPNg82DzYPNg82DzYPNg82DzYNNwCZgE7AJ2ARsAjYBm4BNwCbKFutsVxqjzXNOQDiP4GIaiG2BOJYtMGPLXDq2QMOSgAWAU4B6wPWA4FBWgNGRAI8O37MkoNEiEXBNx6LA2gE89QC0cJoYVVpOE5vRoWrjo1g6XBmy3QAegN6UoTYDSw/gpnHe6akpgC0zJTy0yajS4coIS4cvQy4dqx4K+aKHCowSPVTgfgZwhqh8gZWitAJaUecE8sWXM0qHGiUwStQGUfkBcXtWYS9D1B3SSIGwKa7nbu26tdT1dWfmffBLJnzCZYfPl8PlyTw/nQ7Hyy9tZvP98XD88ON8vDcfx4fz6Zt5PP88XcKX9+bTnZkGfcP+q0QcmyftFom3SLxF4r8cidM+hFeORF5DxBWgRKQNkRedKhE5hfWyIiLbtdR1iEjZr+sqb2MxEvwhFkc7xLsNVP4w8lTfdLYTSouSavKwnbVOb6puTbvSSApge6BaU4A5z2gMVw4TusYfkOmtoPG3iigpoqRoroqsw90ZpUcpjaKlVRS3pl1ZQAZ8D9RHqQDL+ytyUASPCB4RPKLGI9p4ZHXgBI8yYHsAHmXgL3jEVRHBI4JHBI+o8Yg2HpEOnOBRBnwPwKMMvLdH11cw5umL 
+   1
+   -825.94913292171
+   0.102303301775782
+   2.03192384337707
+   186.866470947168
+   756.680249254406
+   2061.6173842198
+   665.61094712613
+   -3805.6942272244
+   -2171.56499466634
+   1320.50170173092
+   298
+   1
+   5XPR_ligprep_1.maegz 
+   1
+   54117
+   W0NIM11DKFtDSDNdKShbQ0gzXSljMVtjSF1bY0hdYyhbY0hdW2NIXTEpUyg9TykoPU8pW05IXWMyYyhjKE9bQ0gyXVtDSDJdW09IXSluYyhuMiktYzNuW2NIXVtjSF1bY0hdbjMpT2M0W2NIXVtjSF1bY0hdW2NIXWM0T1tDSDNd 
+   J2VwaWtfcHl0aG9uJywgJy1waCcsICc3LjAnLCAnLXRuJywgJzgnLCAnLW1hJywgJzUwMCcsICctaW1hZScsICc8aW5maWxlLm1hZT4nLCAnLW9tYWUnLCAnPG91dGZpbGUubWFlPic= 
+   1
+     0.0005 
+     0.0004 
+     0.0000 
+     0.0003 
+   0.000722091512707905
+   -1
+   1
+   0
+   OPLS_2005 
+   31.581468
+   1
+   "5XPR - minimized_ligand-1" 
+   5xpr_glide-dock_XP_26 
+   5xpr_Hypothesis_26-gridgen 
+   1
+   12
+   -6.0553119825158
+   -0.155264409808097
+   -0.526534442591064
+   -1.29843077930388
+   -6.0556119825158
+   -6.0556119825158
+   -45.8331031799316
+   -17.8637256622314
+   -63.6968288421631
+   0
+   0
+   -0.5021253757941
+   1
+   1
+   0.0003
+   1
+   -0.45
+   0
+   0
+   0.234131040750719
+   -4.10175212937491
+   0
+   -1.33977942466736
+   0
+   0
+   0
+   0
+   0.10391390656985
+   0
+   0
+   0
+   2
+
+m_atom[67] {
+
+    # First column is atom index #
+    i_m_mmod_type
+    r_m_x_coord
+    r_m_y_coord
+    r_m_z_coord
+    i_m_residue_number
+    s_m_chain_name
+    i_m_color
+    r_m_charge1
+    r_m_charge2
+    s_m_pdb_residue_name
+    s_m_pdb_atom_name
+    i_m_atomic_number
+    i_m_formal_charge
+    s_m_color_rgb
+    s_m_label_format
+    i_m_label_color
+    s_m_label_user_text
+    r_m_pdb_occupancy
+    r_m_pdb_tfactor
+    i_i_constraint
+    i_i_internal_atom_index
+    i_pa_atomindex
+    i_pdb_PDB_serial
+    i_ppw_anum
+    i_ppw_het
+    i_psp_added_missing_loops
+    r_epik_H2O_pKa
+    r_epik_H2O_pKa_uncertainty
+    :::
+    1 2 -34.000065 7.537164 12.680470 1201 A 10 -0.11500 -0.11500 "K86 " " C10" 6 0 1EE11E  "%UT"  10 ""  1 70.67 0 6849 6440 3172 6441 1 1 <> <>
+    2 2 -32.088638 4.189244 10.805151 1201 A 10 0.78650 0.78650 "K86 " " C15" 6 0 1EE11E  "%UT"  10 ""  1 70.09 0 6850 6441 3173 6442 1 1 <> <>
+    3 2 -30.336004 4.694235 9.225252 1201 A 10 0.76400 0.76400 "K86 " " C17" 6 0 1EE11E  "%UT"  10 ""  1 69.4 0 6851 6442 3174 6443 1 1 <> <>
+    4 2 -29.445898 6.116639 12.471691 1201 A 10 0.84200 0.84200 "K86 " " C21" 6 0 1EE11E  "%UT"  10 ""  1 81.71 0 6852 6443 3175 6444 1 1 <> <>
+    5 2 -28.072660 7.432404 14.413566 1201 A 10 -0.68900 -0.68900 "K86 " " C24" 6 0 1EE11E  "%UT"  10 ""  1 96.78 0 6853 6444 3176 6445 1 1 <> <>
+    6 3 -29.887119 5.741264 7.098593 1201 A 10 0.14000 0.14000 "K86 " " C28" 6 0 1EE11E  "%UT"  10 ""  1 68.72 0 6854 6445 3177 6446 1 1 <> <>
+    7 3 -33.776714 10.302735 13.246848 1201 A 10 -0.18000 -0.18000 "K86 " " C1 " 6 0 1EE11E  "%UT"  10 ""  1 76.23 0 6855 6446 3178 6447 1 1 <> <>
+    8 3 -33.504963 9.370222 14.445074 1201 A 10 0.11500 0.11500 "K86 " " C2 " 6 0 1EE11E  "%UT"  10 ""  1 72.9 0 6856 6447 3179 6448 1 1 <> <>
+    9 3 -32.125057 9.746310 15.029708 1201 A 10 -0.18000 -0.18000 "K86 " " C3 " 6 0 1EE11E  "%UT"  10 ""  1 68.05 0 6857 6448 3180 6449 1 1 <> <>
+    10 3 -34.559658 9.626004 15.540321 1201 A 10 -0.18000 -0.18000 "K86 " " C4 " 6 0 1EE11E  "%UT"  10 ""  1 88.08 0 6858 6449 3181 6450 1 1 <> <>
+    11 2 -33.582756 7.902467 13.985628 1201 A 10 -0.11500 -0.11500 "K86 " " C5 " 6 0 1EE11E  "%UT"  10 ""  1 71.49 0 6859 6450 3182 6451 1 1 <> <>
+    12 2 -33.230591 6.871223 14.889916 1201 A 10 -0.11500 -0.11500 "K86 " " C6 " 6 0 1EE11E  "%UT"  10 ""  1 73.96 0 6860 6451 3183 6452 1 1 <> <>
+    13 2 -33.285851 5.517841 14.506741 1201 A 10 -0.11500 -0.11500 "K86 " " C7 " 6 0 1EE11E  "%UT"  10 ""  1 65.71 0 6861 6452 3184 6453 1 1 <> <>
+    14 2 -33.688530 5.174322 13.202922 1201 A 10 -0.39520 -0.39520 "K86 " " C8 " 6 0 1EE11E  "%UT"  10 ""  1 73.17 0 6862 6453 3185 6454 1 1 <> <>
+    15 2 -34.057194 6.184416 12.292817 1201 A 10 -0.11500 -0.11500 "K86 " " C9 " 6 0 1EE11E  "%UT"  10 ""  1 75.59 0 6863 6454 3186 6455 1 1 <> <>
+    16 113 -33.740082 3.444538 12.710617 1201 A 143 1.75810 1.75810 "K86 " " S11" 16 0 FFFF6B  "%UT"  143 ""  1 74.08 0 6864 6455 3187 6456 1 1 <> <>
+    17 15 -32.795303 2.727242 13.583196 1201 A 70 -0.78410 -0.78410 "K86 " " O12" 8 0 FF2E2E  "%UT"  70 ""  1 68.25 0 6865 6456 3188 6457 1 1 <> <>
+    18 15 -35.162724 3.076251 12.788742 1201 A 70 -0.78410 -0.78410 "K86 " " O13" 8 0 FF2E2E  "%UT"  70 ""  1 71.77 0 6866 6457 3189 6458 1 1 <> <>
+    19 39 -33.226894 3.591121 11.181074 1201 A 38 -0.91720 -0.91720 "K86 " " N14" 7 -1 2E2EFF  "%UT"  38 "-1"  1 70.86 0 6867 6458 3190 6459 1 1   3.877    0.972 
+    20 2 -31.590067 4.094486 9.483598 1201 A 10 -0.39200 -0.39200 "K86 " " C16" 6 0 1EE11E  "%UT"  10 ""  1 68.25 0 6868 6459 3191 6460 1 1 <> <>
+    21 25 -29.654123 5.345837 10.190193 1201 A 38 -0.83900 -0.83900 "K86 " " N18" 7 0 2E2EFF  "%UT"  38 ""  1 75 0 6869 6460 3192 6461 1 1  -2.302    1.070 
+    22 2 -30.196735 5.394237 11.411237 1201 A 10 0.84200 0.84200 "K86 " " C19" 6 0 1EE11E  "%UT"  10 ""  1 78.67 0 6870 6461 3193 6462 1 1 <> <>
+    23 25 -31.363316 4.831927 11.744936 1201 A 38 -0.83900 -0.83900 "K86 " " N20" 7 0 2E2EFF  "%UT"  38 ""  1 75.94 0 6871 6462 3194 6463 1 1   1.683    2.220 
+    24 25 -28.309759 6.740441 12.126232 1201 A 38 -0.83900 -0.83900 "K86 " " N22" 7 0 2E2EFF  "%UT"  38 ""  1 82.03 0 6872 6463 3195 6464 1 1   1.683    2.220 
+    25 2 -27.625105 7.392167 13.082546 1201 A 10 0.65300 0.65300 "K86 " " C23" 6 0 1EE11E  "%UT"  10 ""  1 92.57 0 6873 6464 3196 6465 1 1 <> <>
+    26 2 -29.272120 6.752191 14.680729 1201 A 10 0.65300 0.65300 "K86 " " C25" 6 0 1EE11E  "%UT"  10 ""  1 87.86 0 6874 6465 3197 6466 1 1 <> <>
+    27 25 -29.948832 6.102092 13.716667 1201 A 38 -0.83900 -0.83900 "K86 " " N26" 7 0 2E2EFF  "%UT"  38 ""  1 82.79 0 6875 6466 3198 6467 1 1   1.683    2.220 
+    28 16 -29.778143 4.618710 7.964841 1201 A 70 -0.30000 -0.30000 "K86 " " O27" 8 0 FF2E2E  "%UT"  70 ""  1 66.24 0 6876 6467 3199 6468 1 1 <> <>
+    29 3 -28.473757 6.251630 6.795609 1201 A 10 0.14500 0.14500 "K86 " " C29" 6 0 1EE11E  "%UT"  10 ""  1 72.05 0 6877 6468 3200 6469 1 1 <> <>
+    30 16 -28.039988 7.134103 7.809706 1201 A 70 -0.68300 -0.68300 "K86 " " O30" 8 0 FF2E2E  "%UT"  70 ""  1 85.05 0 6878 6469 3201 6470 1 1  -0.671    0.950 
+    31 16 -32.316090 3.443817 8.511020 1201 A 70 -0.18500 -0.18500 "K86 " " O31" 8 0 FF2E2E  "%UT"  70 ""  1 69.27 0 6879 6470 3202 6471 1 1 <> <>
+    32 2 -32.288567 2.069397 8.444452 1201 A 10 0.08500 0.08500 "K86 " " C32" 6 0 1EE11E  "%UT"  10 ""  1 67.99 0 6880 6471 3203 6472 1 1 <> <>
+    33 2 -31.319777 1.403444 9.220838 1201 A 10 -0.11500 -0.11500 "K86 " " C33" 6 0 1EE11E  "%UT"  10 ""  1 68.78 0 6881 6472 3204 6473 1 1 <> <>
+    34 2 -31.220572 0.001327 9.194016 1201 A 10 -0.11500 -0.11500 "K86 " " C34" 6 0 1EE11E  "%UT"  10 ""  1 69.29 0 6882 6473 3205 6474 1 1 <> <>
+    35 2 -32.103619 -0.745081 8.394731 1201 A 10 -0.11500 -0.11500 "K86 " " C35" 6 0 1EE11E  "%UT"  10 ""  1 67.79 0 6883 6474 3206 6475 1 1 <> <>
+    36 2 -33.083881 -0.090218 7.625694 1201 A 10 -0.11500 -0.11500 "K86 " " C36" 6 0 1EE11E  "%UT"  10 ""  1 66.02 0 6884 6475 3207 6476 1 1 <> <>
+    37 2 -33.189266 1.324174 7.638633 1201 A 10 0.08500 0.08500 "K86 " " C37" 6 0 1EE11E  "%UT"  10 ""  1 67.57 0 6885 6476 3208 6477 1 1 <> <>
+    38 16 -34.122681 2.018283 6.897063 1201 A 70 -0.28500 -0.28500 "K86 " " O38" 8 0 FF2E2E  "%UT"  70 ""  1 68.52 0 6886 6477 3209 6478 1 1 <> <>
+    39 3 -34.891014 1.316156 5.933910 1201 A 10 0.11000 0.11000 "K86 " " C39" 6 0 1EE11E  "%UT"  10 ""  1 65.71 0 6887 6478 3210 6479 1 1 <> <>
+    40 41 -34.282516 8.275405 11.947219 1201 A 21 0.11500 0.11500 "K86 " "HC10" 1 0 FFFFFF  ""  21 ""  <> <> 0 6888 6905 <> <> <> <> <> <>
+    41 41 -27.526577 7.954723 15.184350 1201 A 21 0.19700 0.19700 "K86 " "HC24" 1 0 FFFFFF  ""  21 ""  <> <> 0 6889 6906 <> <> <> <> <> <>
+    42 41 -30.350546 5.422831 6.163196 1201 A 21 0.03000 0.03000 "K86 " "H281" 1 0 FFFFFF  ""  21 ""  <> <> 0 6890 6907 <> <> <> <> <> <>
+    43 41 -30.510427 6.527168 7.528975 1201 A 21 0.03000 0.03000 "K86 " "H282" 1 0 FFFFFF  ""  21 ""  <> <> 0 6891 6908 <> <> <> <> <> <>
+    44 41 -33.706055 11.351963 13.535220 1201 A 21 0.06000 0.06000 "K86 " "H1_1" 1 0 FFFFFF  ""  21 ""  <> <> 0 6892 6909 <> <> <> <> <> <>
+    45 41 -34.771580 10.152933 12.827515 1201 A 21 0.06000 0.06000 "K86 " "H1_2" 1 0 FFFFFF  ""  21 ""  <> <> 0 6893 6910 <> <> <> <> <> <>
+    46 41 -33.055607 10.132937 12.446406 1201 A 21 0.06000 0.06000 "K86 " "H1_3" 1 0 FFFFFF  ""  21 ""  <> <> 0 6894 6911 <> <> <> <> <> <>
+    47 41 -31.880806 9.141779 15.904208 1201 A 21 0.06000 0.06000 "K86 " "H3_1" 1 0 FFFFFF  ""  21 ""  <> <> 0 6895 6912 <> <> <> <> <> <>
+    48 41 -31.328394 9.618395 14.295853 1201 A 21 0.06000 0.06000 "K86 " "H3_2" 1 0 FFFFFF  ""  21 ""  <> <> 0 6896 6913 <> <> <> <> <> <>
+    49 41 -32.100990 10.789251 15.347148 1201 A 21 0.06000 0.06000 "K86 " "H3_3" 1 0 FFFFFF  ""  21 ""  <> <> 0 6897 6914 <> <> <> <> <> <>
+    50 41 -34.389252 8.979684 16.400839 1201 A 21 0.06000 0.06000 "K86 " "H4_1" 1 0 FFFFFF  ""  21 ""  <> <> 0 6898 6915 <> <> <> <> <> <>
+    51 41 -34.525494 10.656899 15.893676 1201 A 21 0.06000 0.06000 "K86 " "H4_2" 1 0 FFFFFF  ""  21 ""  <> <> 0 6899 6916 <> <> <> <> <> <>
+    52 41 -35.574295 9.440556 15.188071 1201 A 21 0.06000 0.06000 "K86 " "H4_3" 1 0 FFFFFF  ""  21 ""  <> <> 0 6900 6917 <> <> <> <> <> <>
+    53 41 -32.909016 7.108901 15.892235 1201 A 21 0.11500 0.11500 "K86 " " HC6" 1 0 FFFFFF  ""  21 ""  <> <> 0 6901 6918 <> <> <> <> <> <>
+    54 41 -33.009556 4.747371 15.210762 1201 A 21 0.11500 0.11500 "K86 " " HC7" 1 0 FFFFFF  ""  21 ""  <> <> 0 6902 6919 <> <> <> <> <> <>
+    55 41 -34.375374 5.921963 11.294630 1201 A 21 0.11500 0.11500 "K86 " " HC9" 1 0 FFFFFF  ""  21 ""  <> <> 0 6903 6920 <> <> <> <> <> <>
+    56 41 -26.712753 7.886851 12.783972 1201 A 21 0.01100 0.01100 "K86 " "HC23" 1 0 FFFFFF  ""  21 ""  <> <> 0 6904 6921 <> <> <> <> <> <>
+    57 41 -29.691460 6.729539 15.675648 1201 A 21 0.01100 0.01100 "K86 " "HC25" 1 0 FFFFFF  ""  21 ""  <> <> 0 6905 6922 <> <> <> <> <> <>
+    58 41 -27.773083 5.422971 6.684014 1201 A 21 0.06000 0.06000 "K86 " "H291" 1 0 FFFFFF  ""  21 ""  <> <> 0 6906 6923 <> <> <> <> <> <>
+    59 41 -28.474453 6.802969 5.855091 1201 A 21 0.06000 0.06000 "K86 " "H292" 1 0 FFFFFF  ""  21 ""  <> <> 0 6907 6924 <> <> <> <> <> <>
+    60 42 -28.371740 7.997811 7.619291 1201 A 21 0.41800 0.41800 "K86 " "HO30" 1 0 FFFFFF  ""  21 ""  <> <> 0 6908 6925 <> <> <> <>  14.078    0.530 
+    61 41 -30.643002 1.978997 9.834605 1201 A 21 0.11500 0.11500 "K86 " "HC33" 1 0 FFFFFF  ""  21 ""  <> <> 0 6909 6926 <> <> <> <> <> <>
+    62 41 -30.471426 -0.498942 9.789337 1201 A 21 0.11500 0.11500 "K86 " "HC34" 1 0 FFFFFF  ""  21 ""  <> <> 0 6910 6927 <> <> <> <> <> <>
+    63 41 -32.034103 -1.822454 8.375219 1201 A 21 0.11500 0.11500 "K86 " "HC35" 1 0 FFFFFF  ""  21 ""  <> <> 0 6911 6928 <> <> <> <> <> <>
+    64 41 -33.745441 -0.698374 7.028915 1201 A 21 0.11500 0.11500 "K86 " "HC36" 1 0 FFFFFF  ""  21 ""  <> <> 0 6912 6929 <> <> <> <> <> <>
+    65 41 -35.591736 2.008000 5.466637 1201 A 21 0.03000 0.03000 "K86 " "H391" 1 0 FFFFFF  ""  21 ""  <> <> 0 6913 6930 <> <> <> <> <> <>
+    66 41 -34.260517 0.900553 5.147169 1201 A 21 0.03000 0.03000 "K86 " "H392" 1 0 FFFFFF  ""  21 ""  <> <> 0 6914 6931 <> <> <> <> <> <>
+    67 41 -35.474388 0.517985 6.394633 1201 A 21 0.03000 0.03000 "K86 " "H393" 1 0 FFFFFF  ""  21 ""  <> <> 0 6915 6932 <> <> <> <> <> <>
+    :::
+  }
+m_bond[72] {
+
+    # First column is bond index #
+    i_m_from
+    i_m_to
+    i_m_order
+    r_glide_torcontrol_penalty
+    s_glide_torcontrol_name
+    :::
+    1 1 11 1 <> <>
+    2 1 15 2 <> <>
+    3 1 40 1 <> <>
+    4 2 19 1 <> <>
+    5 2 20 1 <> <>
+    6 2 23 2 <> <>
+    7 3 20 2 <> <>
+    8 3 21 1 <> <>
+    9 3 28 1 <> <>
+    10 4 22 1 <> <>
+    11 4 24 1 <> <>
+    12 4 27 2 <> <>
+    13 5 25 1 <> <>
+    14 5 26 2 <> <>
+    15 5 41 1 <> <>
+    16 6 28 1 <> <>
+    17 6 29 1 <> <>
+    18 6 42 1 <> <>
+    19 6 43 1 <> <>
+    20 7 8 1 <> <>
+    21 7 44 1 <> <>
+    22 7 45 1 <> <>
+    23 7 46 1 <> <>
+    24 8 9 1 <> <>
+    25 8 10 1 <> <>
+    26 8 11 1 <> <>
+    27 9 47 1 <> <>
+    28 9 48 1 <> <>
+    29 9 49 1 <> <>
+    30 10 50 1 <> <>
+    31 10 51 1 <> <>
+    32 10 52 1 <> <>
+    33 11 12 2 <> <>
+    34 12 13 1 <> <>
+    35 12 53 1 <> <>
+    36 13 14 2 <> <>
+    37 13 54 1 <> <>
+    38 14 15 1 <> <>
+    39 14 16 1 0.662026414153132 sulfonamide_CCSN 
+    40 15 55 1 <> <>
+    41 16 14 1 0.662026414153132 sulfonamide_CCSN 
+    42 16 17 2 <> <>
+    43 16 18 2 <> <>
+    44 16 19 1 0.458858413915488 sulfonamide_CSNC 
+    45 19 16 1 0.458858413915488 sulfonamide_CSNC 
+    46 20 31 1 <> <>
+    47 21 22 2 <> <>
+    48 22 23 1 <> <>
+    49 24 25 2 <> <>
+    50 25 56 1 <> <>
+    51 26 27 1 <> <>
+    52 26 57 1 <> <>
+    53 29 30 1 <> <>
+    54 29 58 1 <> <>
+    55 29 59 1 <> <>
+    56 30 60 1 <> <>
+    57 31 32 1 <> <>
+    58 32 33 2 <> <>
+    59 32 37 1 <> <>
+    60 33 34 1 <> <>
+    61 33 61 1 <> <>
+    62 34 35 2 <> <>
+    63 34 62 1 <> <>
+    64 35 36 1 <> <>
+    65 35 63 1 <> <>
+    66 36 37 2 <> <>
+    67 36 64 1 <> <>
+    68 37 38 1 <> <>
+    69 38 39 1 <> <>
+    70 39 65 1 <> <>
+    71 39 66 1 <> <>
+    72 39 67 1 <> <>
+    :::
+  }
+m_glide_XPvisualizer {
+
+    i_glide_XP_impact_version
+    s_glide_XPviz_ligname
+    i_glide_XPviz_lignum
+    i_glide_XPviz_posenum
+    r_glide_XP_GScore
+    r_i_docking_score
+    r_epik_State_Penalty
+    r_glide_XP_LowMW
+    r_glide_XP_RotPenal
+    r_glide_XP_LipophilicEvdW
+    r_glide_XP_HBond
+    r_glide_XP_PhobEnPairHB
+    r_glide_XP_Sitemap
+    r_glide_XP_Electro
+    r_glide_XP_Penalties
+    r_glide_XP_PhobEn
+    r_glide_XP_PiStack
+    r_glide_XP_PhobEnHB
+    r_glide_XP_HBPenal
+    r_glide_XP_ExposPenal
+    r_glide_XP_PiCat
+    r_glide_XP_ClBr
+    r_glide_XP_Zpotr
+    r_glide_XP_Metrew
+    :::
+    91117
+     "5XPR - minimized_ligand" 
+     1
+     1
+     -6.0556119825158
+     -6.0553119825158
+       0.0003 
+     0
+     0.234131040750719
+     -4.10175212937491
+     -0.5021253757941
+     0
+     0
+     -1.33977942466736
+     0
+     -0.45
+     0
+     0
+     0
+     0.10391390656985
+     0
+     0
+     0
+     0
+    m_glide_XPviz_hbonds[5] { 
+      # First column is H-bond index #
+      i_glide_XPviz_ihbl
+      i_glide_XPviz_ihbp
+      r_glide_XPviz_hbsct
+      :::
+      1 38 1426 0
+      2 38 1424 -0.00108130176981896
+      3 19 1425 -0.0210440740242806
+      4 31 1424 0
+      5 60 983 -0.8
+      :::
+    } 
+    m_glide_XPviz_phobpack { 
+      i_glide_XPviz_ngpp
+      r_glide_XPviz_phobsc
+      :::
+      1
+       -0.75
+      m_glide_XPviz_phobgroups[1] { 
+        # Second column is number of ligand atoms in group, third is number of protein residues. #
+        i_glide_XPviz_phobgroup_nat
+        i_glide_XPviz_phobgroup_nres
+        r_glide_XPviz_phobgroup_param
+        :::
+        1 4 10 -0
+        :::
+      } 
+      m_glide_XPviz_phobatsc[4] { 
+        # Second column is group in above table to which specified atom belongs. #
+        i_glide_XPviz_phobatgroup
+        i_glide_XPviz_phobatscat
+        r_glide_XPviz_phobatscpar
+        :::
+        1 1 32 -0.05
+        2 1 33 -0
+        3 1 34 -0.1
+        4 1 35 -0.3
+        :::
+      } 
+      m_glide_XPviz_pack_res[10] { 
+        # Second column is group in above table to which specified residue belongs. #
+        i_glide_XPviz_pack_resgroup
+        i_glide_XPviz_pack_resnum
+        :::
+        1 1 277
+        2 1 182
+        3 1 185
+        4 1 336
+        5 1 339
+        6 1 375
+        7 1 372
+        8 1 281
+        9 1 282
+        10 1 278
+        :::
+      } 
+    } 
+    m_glide_XPviz_exposure { 
+      i_glide_XPviz_nexpo
+      r_glide_XPviz_expo
+      :::
+      1
+       0.10391390656985
+      m_glide_XPviz_expo_group_penal[1] { 
+        # First column is group index, second is number of atoms in group #
+        i_glide_XPviz_expo_nat
+        r_glide_XPviz_expo_penal
+        :::
+        1 1 0.10391390656985
+        :::
+      } 
+      m_glide_XPviz_expo_groupat[1] { 
+        # Second column is group in above table to which atom belongs, last is ligand atom index. #
+        i_glide_XPviz_expo_liggroup
+        i_glide_XPviz_expo_ligat
+        :::
+        1 1 5
+        :::
+      } 
+    } 
+    m_glide_XPviz_rotbonds[9] { 
+      i_glide_XPviz_rotbondat1
+      i_glide_XPviz_rotbondat2
+      :::
+      1 16 14
+      2 16 19
+      3 19 2
+      4 31 32
+      5 31 20
+      6 3 28
+      7 22 4
+      8 6 28
+      9 6 29
+      :::
+    } 
+    m_glide_XPviz_watmol[24] { 
+      r_glide_XPviz_watmolx
+      r_glide_XPviz_watmoly
+      r_glide_XPviz_watmolz
+      :::
+      1 -28.1176235896311 9.4369255276502 10.313836745849
+      2 -28.9509569229644 11.1035921943169 14.6471700791823
+      3 -25.4509569229644 8.9369255276502 7.48050341251563
+      4 -35.4509569229644 3.9369255276502 17.313836745849
+      5 -33.4509569229644 0.603592194316871 16.313836745849
+      6 -31.1176235896311 9.27025886098354 18.313836745849
+      7 -30.6176235896311 -0.896407805683129 15.6471700791823
+      8 -30.6176235896311 3.4369255276502 15.6471700791823
+      9 -27.4509569229644 3.77025886098354 14.813836745849
+      10 -27.4509569229644 11.1035921943169 17.813836745849
+      11 -26.2842902562977 10.4369255276502 12.313836745849
+      12 -31.4509569229644 5.4369255276502 17.4805034125156
+      13 -25.2842902562977 5.60359219431687 15.1471700791823
+      14 -25.1176235896311 9.77025886098354 14.813836745849
+      15 -28.7842902562977 6.60359219431687 18.1471700791823
+      16 -26.1176235896311 11.1035921943169 9.1471700791823
+      17 -24.2842902562977 10.1035921943169 17.4805034125156
+      18 -28.2842902562977 8.9369255276502 19.6471700791823
+      19 -26.2842902562977 7.77025886098354 17.6471700791823
+      20 -26.7842902562977 4.60359219431687 17.4805034125156
+      21 -23.1176235896311 7.4369255276502 14.4805034125156
+      22 -28.7842902562977 2.10359219431687 17.313836745849
+      23 -30.2842902562977 5.60359219431687 20.313836745849
+      24 -31.6176235896311 2.27025886098354 18.1471700791823
+      :::
+    } 
+  }
+}

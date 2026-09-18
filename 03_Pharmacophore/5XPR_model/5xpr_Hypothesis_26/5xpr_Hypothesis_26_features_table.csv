@@ -1,0 +1,8 @@
+Rank,Feature_label,Score,X,Y,Z,type,num,from_chemscore,source
+1,R18,-1.44,-32.2009,0.6605,8.4197,R,17,0,RingChemscoreHphobe
+2,D11,-0.80,-28.3717,7.9978,7.6193,D,10,0,HBond
+3,R15,-0.55,-33.6408,6.5312,13.5931,R,14,0,RingChemscoreHphobe
+4,R16,-0.24,-30.8715,4.7583,10.4767,R,15,0,RingChemscoreHphobe
+5,R17,-0.13,-28.7791,6.756,13.4152,R,16,0,RingChemscoreHphobe
+6,N14,-0.02,-33.2269,3.5911,11.1811,N,13,0,HBond
+7,A9,-0.00,-34.1227,2.0183,6.8971,A,8,0,HBond

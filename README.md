@@ -1,127 +1,89 @@
 # ETBR-PermMol Virtual Screening
 
-Code, data, trained models, pharmacophore models, docking results, and candidate-compound files associated with:
+Repository for the study:
 
 **Discovery of novel endothelin B receptor antagonists through PermMol-enabled multistage virtual screening of ultra-large commercial libraries**
 
-> This repository is being prepared as the publication repository for the study. Environment setup and end-to-end reproduction instructions will be added after final reproducibility testing.
+This project combines the molecular representation model **PermMol**, machine-learning classifiers, e-pharmacophore screening, molecular docking, and experimental validation for the discovery of novel endothelin B receptor (ETBR) antagonists.
 
 ---
 
-## Overview
+## Highlights
 
-This study uses the molecular representation model **PermMol** together with machine-learning models and structure-based virtual screening to identify novel endothelin B receptor (ETBR) antagonists.
-
-The study contains three major components:
-
-1. Benchmark evaluation of PermMol on MoleculeNet and MUV datasets.
-2. ETBR activity prediction and ultra-large virtual screening using PermMol-based molecular representations.
-3. Structure-based screening and experimental validation, including e-pharmacophore screening, Glide docking, expert inspection, and FLIPR assays.
-
----
-
-## Workflow
-
-```text
-MoleculeNet / MUV benchmark evaluation
-                ↓
-ETBR activity dataset construction
-                ↓
-Molecular representation generation
-                ↓
-RF / DNN model training
-                ↓
-PermMol + DNN ETBR prediction model
-                ↓
->16 million commercial compounds
-                ↓
-AI-based virtual screening
-                ↓
-173,435 compounds
-                ↓
-e-Pharmacophore screening
-                ↓
-25,751 compounds
-                ↓
-Glide HTVS → SP → XP docking
-                ↓
-928 compounds
-                ↓
-Expert inspection
-                ↓
-20 candidates
-                ↓
-Final compounds for experimental testing
-                ↓
-FLIPR validation and binding-mode analysis
-```
+- PermMol was evaluated on **7 MoleculeNet datasets** and **17 MUV virtual-screening tasks**.
+- A curated ETBR dataset containing **721 active** and **1082 inactive** compounds was constructed from ChEMBL and BindingDB.
+- Six molecular representations were evaluated with RF and DNN classifiers.
+- The **PermMol + DNN** model achieved a test AUC of approximately **0.988** for ETBR activity prediction.
+- More than **16 million** commercially available compounds were screened through a multistage virtual-screening strategy.
+- Experimental validation identified **five active compounds**: C1, C2, C7, C8, and C9.
 
 ---
 
-## Repository structure
-
-```text
-ETBR-PermMol-Virtual-Screening/
-├── 01_ML_Datasets/
-│   ├── ETBR_dataset/
-│   ├── ETBR_split/
-│   ├── ETBR_PermMol_features/
-│   ├── MoleculeNet/
-│   └── MUV/
-├── 02_Trained_Models/
-│   ├── ETBR_models/
-│   ├── ETBR_logs/
-│   ├── MoleculeNet_models/
-│   └── MUV_models/
-├── 03_Pharmacophore/
-│   ├── 5XPR_model/
-│   └── Validation_set/
-├── 04_Code/
-│   ├── PermMol/
-│   ├── preprocessing/
-│   ├── training/
-│   ├── screening/
-│   └── analysis/
-├── 05_Docking_and_Candidates/
-│   ├── Docking_results/
-│   ├── Expert_Selected_20/
-│   ├── Final_10_Candidates/
-│   └── Active_Hits_Binding_Modes/
-└── README.md
-```
-
----
-
-## Data
-
-### ETBR dataset
+## ETBR dataset
 
 ETBR activity data were collected from **ChEMBL** and **BindingDB** using IC50 as the activity endpoint.
 
-| Class | Number of compounds |
+| Class | Compounds |
 |---|---:|
 | Active | 721 |
 | Inactive | 1082 |
 | Total | 1803 |
 
-Activity thresholds:
+Activity labels were defined as:
 
 ```text
-IC50 < 1000 nM      → active
-IC50 > 10000 nM     → inactive
-1000–10000 nM       → excluded
+IC50 < 1000 nM      active
+IC50 > 10000 nM     inactive
+1000–10000 nM       excluded
 ```
 
-Final split:
+The final dataset was split into:
 
 ```text
 Training set: 1623 compounds
 Test set:      180 compounds
 ```
 
+---
+
+## Molecular representations and prediction models
+
+The following molecular representations were evaluated:
+
+- PermMol
+- ECFP4
+- MACCS
+- PubChem
+- RDKFingerprint
+- Atom Pairs
+
+Random forest (**RF**) and deep neural network (**DNN**) classifiers were used for ETBR activity prediction.
+
+PermMol produces a **1536-dimensional molecular representation** for downstream modeling.
+
+The principal model used for large-scale ETBR screening was:
+
+```text
+PermMol + DNN
+```
+
+For the ETBR test set, the PermMol + DNN model achieved approximately:
+
+| Metric | Value |
+|---|---:|
+| AUC | 0.988 |
+| Sensitivity | 0.889 |
+| Specificity | 0.963 |
+| Accuracy | 0.933 |
+| MCC | 0.861 |
+
+---
+
+## Benchmark datasets
+
 ### MoleculeNet
 
-Seven benchmark datasets are included:
+Seven MoleculeNet datasets were used for molecular-property prediction benchmarks:
 
 - BACE
 - BBBP
@@ -131,140 +93,72 @@ Seven benchmark datasets are included:
 - Tox21
 - ToxCast
 
-These datasets were used to compare PermMol with conventional molecular representations on molecular-property prediction tasks.
-
-Some historical MoleculeNet files existed in multiple preprocessing versions. `_pro` files generally correspond to standardized-SMILES preprocessing; redundant historical copies do not need to be retained in the final public repository.
-
 ### MUV
 
-The repository contains the 17 MUV virtual-screening benchmark tasks.
-
-Large regenerable intermediate feature files may be omitted when they can be reproduced from the supplied input data and feature-extraction workflow.
-
----
-
-## Molecular representations and models
-
-Six molecular representations were evaluated:
-
-- PermMol
-- ECFP4
-- MACCS
-- PubChem
-- RDKFingerprint
-- Atom Pairs
-
-RF and DNN classifiers were used for the ETBR prediction task.
-
-PermMol produces a **1536-dimensional molecular representation** used as input to downstream models.
-
-The main ETBR screening model is:
-
-```text
-PermMol + DNN
-```
-
-Trained model checkpoints and evaluation logs are stored under:
-
-```text
-02_Trained_Models/
-```
-
-Some historical MUV model directories contain fewer saved folds because individual training runs were manually stopped. The available historical checkpoints are preserved as-is.
+Seventeen MUV tasks were used to evaluate molecular representations under highly imbalanced virtual-screening conditions.
 
 ---
 
 ## Virtual screening
 
-The initial screening library contained more than **16 million commercially available compounds** from:
+The screening library contained more than **16 million commercially available compounds** from ChemDiv, Specs, and TopScience.
 
-- ChemDiv
-- Specs
-- TopScience
+The successive screening stages retained:
 
-Screening flow:
-
-```text
->16 million compounds
-        ↓
-PermMol + DNN
-        ↓
-173,435 compounds
-        ↓
-e-Pharmacophore
-        ↓
-25,751 compounds
-        ↓
-HTVS / SP / XP docking
-        ↓
-928 compounds
-        ↓
-Expert inspection
-        ↓
-20 candidates
-        ↓
-Final experimental candidates
-```
-
-Raw commercial libraries are not necessarily redistributed because of file size and/or redistribution restrictions.
+| Stage | Number of compounds |
+|---|---:|
+| Initial commercial library | >16 million |
+| PermMol + DNN screening | 173,435 |
+| e-Pharmacophore screening | 25,751 |
+| Glide docking | 928 |
+| Expert selection | 20 |
+| Experimental candidates | 9 |
 
 ---
 
 ## Pharmacophore screening
 
-The e-pharmacophore model was constructed from the human ETBR–Bosentan complex:
+The e-pharmacophore model was constructed from the human ETBR–Bosentan complex.
 
 ```text
 PDB ID: 5XPR
 Ligand: Bosentan
-Grid box: 26 × 26 × 26 Å
+Docking box: 26 × 26 × 26 Å
 Redocking RMSD: 1.74 Å
 ```
 
-The final pharmacophore contains seven features:
+The selected pharmacophore contains seven features:
 
 ```text
 A D N R R R R
 ```
 
-Validation set:
+The pharmacophore validation set contains:
 
 ```text
 40 active compounds
 1893 decoys
 ```
 
-Performance was assessed using enrichment metrics including EF1%, BEDROC, and AUAC.
+Performance was evaluated using **EF1%**, **BEDROC**, and **AUAC**.
 
 ---
 
 ## Molecular docking
 
-Docking was performed using **Schrödinger Glide** with a hierarchical protocol:
+Molecular docking was performed with **Schrödinger Glide** using a hierarchical protocol:
 
 ```text
-HTVS
- ↓
-SP
- ↓
-XP
+HTVS → SP → XP
 ```
 
-Docking outputs and candidate structures are stored in:
-
-```text
-05_Docking_and_Candidates/
-```
-
-The `Expert_Selected_20` directory contains compounds retained after expert inspection.
-
-Historical project files also include a 10-compound candidate set, whereas the current manuscript reports nine compounds selected for experimental validation. The historical files are retained for provenance.
+Docking poses, candidate structures, and receptor–ligand interaction files are included in the repository.
 
 ---
 
 ## Experimental validation
 
-The current manuscript reports five compounds with more than 50% inhibition at 10 μM:
+Five compounds showed more than 50% inhibition at 10 μM:
 
 - C1
 - C2
@@ -272,7 +166,7 @@ The current manuscript reports five compounds with more than 50% inhibition at 1
 - C8
 - C9
 
-Reported IC50 values:
+Measured IC50 values:
 
 | Compound | IC50 (μM) |
 |---|---:|
@@ -283,140 +177,51 @@ Reported IC50 values:
 | C9 | 2.78 |
 | BQ-788 | 0.0625 |
 
-Binding-mode analysis files are stored under:
-
-```text
-05_Docking_and_Candidates/Active_Hits_Binding_Modes/
-```
+Binding-mode analysis files for the active compounds are also provided.
 
 ---
 
 ## Code
 
-The code archive is organized as:
+The repository provides scripts for:
 
-```text
-04_Code/
-├── PermMol/          # PermMol package and feature extraction
-├── preprocessing/    # dataset cleaning and preprocessing
-├── training/         # RF and DNN training
-├── screening/        # large-library screening
-└── analysis/         # molecular similarity analysis
-```
+- ChEMBL and BindingDB data preprocessing
+- SMILES standardization and deduplication
+- train/test splitting
+- PermMol feature extraction
+- RF and DNN training
+- large-library virtual screening
+- molecular similarity analysis
 
-`ml_screener_dnn.py` and `ml_screener_rf.py` are configurable screening templates. Input dimensions, architecture parameters, model paths, and representation settings should be adjusted according to the trained model being used.
+The PermMol package used in this study is included together with the feature-extraction script.
 
-Detailed executable commands will be added after final reproducibility testing.
+The screening scripts `ml_screener_dnn.py` and `ml_screener_rf.py` are configurable for different molecular representations and trained models.
 
 ---
 
-## Environment
+## Requirements
 
-**To be completed after reproducibility testing.**
+The computational workflow uses:
 
-Known information from the original project archive:
-
+- Python
 - PyTorch
 - scikit-learn
 - RDKit
-- PermMol 0.1.0.dev0
-- NumPy 1.21.6 for the original PermMol feature-extraction workflow
-- Huawei Ascend 910 NPU for the original PermMol feature extraction
-- Schrödinger Maestro / Glide 2021 for pharmacophore modeling and docking
+- PermMol
+- Schrödinger Maestro / Glide 2021
 
-A verified `environment.yml` or `requirements.txt` will be added after the original software versions are checked.
+Detailed environment configuration and reproducible execution commands will be provided together with the finalized reproduction setup.
 
 ---
 
-## Reproduction
+## Data availability
 
-**To be completed after final model reproduction.**
+Curated ETBR datasets, benchmark datasets, trained model checkpoints, evaluation logs, pharmacophore files, docking results, candidate-compound files, and analysis scripts are provided in this repository.
 
-Planned modules:
-
-### 1. PermMol feature extraction
-
-```bash
-# command to be added
-```
-
-Expected output:
-
-```text
-1536-dimensional molecular representations
-```
-
-### 2. ETBR model training
-
-```bash
-# command to be added
-```
-
-### 3. ETBR model evaluation
-
-```bash
-# command to be added
-```
-
-The current manuscript reports a PermMol + DNN test AUC of approximately **0.988**.
-
-### 4. MoleculeNet benchmark reproduction
-
-```bash
-# command to be added
-```
-
-### 5. MUV benchmark reproduction
-
-```bash
-# command to be added
-```
-
-### 6. Large-library virtual screening
-
-```bash
-# command to be added
-```
-
-The exact environment, executable commands, and expected outputs will be added after the complete workflow has been rerun and verified.
-
----
-
-## Data and model availability
-
-The repository is intended to include:
-
-- curated ETBR datasets
-- ETBR train/test splits
-- selected benchmark datasets
-- trained model checkpoints
-- evaluation logs
-- pharmacophore files
-- docking results
-- candidate-compound files
-- preprocessing, training, screening, and analysis scripts
-
-The following may be excluded from public release:
-
-- raw commercial compound libraries
-- very large regenerable intermediate feature files
-- redundant historical copies
-- software-dependent temporary files
+Raw commercial compound libraries from ChemDiv, Specs, and TopScience are not redistributed.
 
 ---
 
 ## Citation
 
-Citation information will be added after publication.
-
----
-
-## License
-
-License information will be added before public release.
-
----
-
-## Contact
-
-Contact information will be added before public release.
+Citation information will be added upon publication.

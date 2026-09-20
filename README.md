@@ -156,7 +156,6 @@ Reproduction of the pharmacophore and docking stages requires Schrödinger Phase
 
 The repository provides the processed benchmark datasets, ETBR dataset, molecular representations, trained models, training and screening code, pharmacophore files, docking results, and candidate-compound files associated with the study.
 
-The complete commercial compound libraries used for the ultra-large screening campaign are not redistributed because of their size and source/licensing restrictions.
 
 ## Citation
 

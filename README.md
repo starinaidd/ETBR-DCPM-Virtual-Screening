@@ -15,14 +15,14 @@ PermMol+DNN achieved an AUC-ROC of 0.988 and an MCC of 0.861 on the independent 
 The environment used for model training and inference is provided in:
 
 ```text
-jkl_environment.yml
+environment.yml
 ```
 
 Create the environment with:
 
 ```bash
-conda env create -f jkl_environment.yml
-conda activate jkl
+conda env create -f name_environment.yml
+conda activate name
 ```
 
 ### PermMol environment

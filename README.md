@@ -121,7 +121,7 @@ python 04_Code/screening/ml_screener_dnn.py \
     --models 02_Trained_Models/ETBR_models/ETB_model/etb_dnn_permmol/model_fold_0.pth \
     --prop 0.5 \
     --out_dir path/to/output
-
+```
 PermMol representations are used as model input, and compounds with predicted probabilities above the specified threshold are retained for subsequent screening.
 
 The same implementation can be used for batch screening of large compound collections.

@@ -1,70 +1,151 @@
-# ETBR-PermMol Virtual Screening
+# PermMol-enabled Virtual Screening for ETBR Antagonists
 
-This repository contains the data, code, pretrained models, and supporting files for:
+Official repository for the study:
 
 **Discovery of novel endothelin B receptor antagonists through PermMol-enabled multistage virtual screening of ultra-large commercial libraries**
 
-In this study, PermMol molecular representations were combined with machine-learning models for ETBR activity prediction and subsequently integrated with pharmacophore screening and molecular docking for large-scale virtual screening.
+This study develops a multistage virtual-screening framework for the discovery of endothelin B receptor (ETBR) antagonists. The framework combines molecular representations learned by the small-molecule foundation model **PermMol**, machine-learning activity prediction, energy-based pharmacophore screening, molecular docking, and experimental validation.
 
-The curated ETBR dataset contains 1,803 compounds, including 721 actives and 1,082 inactives. PermMol represents each molecule as a 1,536-dimensional embedding.
+PermMol was first benchmarked against conventional molecular representations on molecular-property prediction and virtual-screening tasks. A PermMol-based DNN model was then developed for ETBR activity prediction and applied to an ultra-large commercial compound collection. AI-prioritized molecules were subsequently filtered by pharmacophore screening, hierarchical Glide docking, and expert inspection before experimental validation.
 
-## Requirements
+## Results
+
+PermMol was evaluated on:
+
+- 7 MoleculeNet molecular-property prediction datasets
+- 17 MUV virtual-screening tasks
+
+For ETBR, six molecular representations were compared using random forest and deep neural network models:
+
+- PermMol
+- ECFP4
+- MACCS
+- PubChem
+- RDKFingerprint
+- Atom Pairs
+
+The curated ETBR dataset contains 1,803 compounds:
+
+| Dataset | Compounds |
+|---|---:|
+| Active | 721 |
+| Inactive | 1,082 |
+| Total | 1,803 |
+| Training set | 1,623 |
+| Independent test set | 180 |
+
+The PermMol-DNN model achieved the best overall performance on the ETBR test set. The reproduced fold-0 results are:
+
+| Metric | Value |
+|---|---:|
+| AUC-ROC | 0.988683 |
+| Sensitivity | 0.888889 |
+| Specificity | 0.962963 |
+| Accuracy | 0.933333 |
+| MCC | 0.860753 |
+
+The final virtual-screening campaign started from more than 16 million commercially available compounds. Nine compounds were selected for experimental testing, and five showed more than 50% inhibition of ETBR activity at 10 μM.
+
+## Installation
+
+### DNN training and inference
+
+A Conda environment file is provided:
+
+```bash
+conda env create -f jkl_environment.yml
+conda activate jkl
+```
+
+The verified environment includes Python 3.9 and PyTorch 1.13.1.
 
 ### PermMol feature extraction
 
-```text
-Python 3.9.13
-PermMol 0.1.0.dev0
-MindSpore 2.0.0a0
-NumPy 1.21.6
-pandas 1.3.4
-RDKit 2023.03.1
-wget 3.2
-```
-
-### ETBR DNN
+PermMol feature extraction uses a separate MindSpore environment. The workflow was verified with:
 
 ```text
-Python 3.9.18
-PyTorch 1.13.1+cu117
-NumPy 1.26.1
-pandas 2.3.3
-scikit-learn 1.0.2
-RDKit 2025.09.2
+Python       3.9.13
+PermMol      0.1.0.dev0
+MindSpore    2.0.0a0
+NumPy        1.21.6
+pandas       1.3.4
+RDKit        2023.03.1
+wget         3.2
 ```
 
-## Data and Models
+PermMol produces a 1536-dimensional molecular representation for each input molecule.
 
-The ETBR train/test split is provided in:
+## Data and pretrained models
+
+### Benchmark datasets
+
+The repository contains the datasets used for the molecular-representation benchmarks:
+
+```text
+01_ML_Datasets/MoleculeNet/
+01_ML_Datasets/MUV/
+```
+
+MoleculeNet includes the seven tasks evaluated in the study:
+
+```text
+BACE
+BBBP
+HIV
+ClinTox
+SIDER
+Tox21
+ToxCast
+```
+
+The MUV directory contains the 17 virtual-screening benchmark tasks.
+
+### ETBR dataset
+
+The processed ETBR train/test split is provided in:
 
 ```text
 01_ML_Datasets/ETBR_split/
-├── ETB_train.csv
-└── ETB_test.csv
 ```
 
-The corresponding PermMol embeddings are provided in:
+PermMol representations are provided in:
 
 ```text
 01_ML_Datasets/ETBR_PermMol_features/
-├── ETB_train_permmol.pkl
-└── ETB_test_permmol.pkl
 ```
 
-Their dimensions are:
+The main files are:
+
+```text
+ETB_train.csv
+ETB_test.csv
+
+ETB_train_permmol.pkl
+ETB_test_permmol.pkl
+```
+
+The PermMol feature matrices have dimensions:
 
 ```text
 ETB_train_permmol.pkl   (1623, 1536)
 ETB_test_permmol.pkl     (180, 1536)
 ```
 
-Pretrained ETBR PermMol-DNN checkpoints are provided in:
+Rows in each PermMol feature file correspond directly to the molecular order in the associated CSV file.
+
+### Pretrained models
+
+ETBR models are provided in:
+
+```text
+02_Trained_Models/ETBR_models/
+```
+
+The five PermMol-DNN checkpoints are located in:
 
 ```text
 02_Trained_Models/ETBR_models/ETB_model/etb_dnn_permmol/
 ```
-
-with five fold models:
 
 ```text
 model_fold_0.pth
@@ -74,13 +155,27 @@ model_fold_3.pth
 model_fold_4.pth
 ```
 
-The molecular order in each PermMol `.pkl` file is identical to that in the corresponding CSV file.
+Training logs are provided in:
+
+```text
+02_Trained_Models/ETBR_logs/
+```
 
 ## Usage
 
 ### PermMol feature extraction
 
-PermMol representations are generated using `extract_feat.py`.
+PermMol features can be generated with the provided feature-extraction script:
+
+```text
+04_Code/PermMol/extract_feat.py
+```
+
+Set the input and output directories in the script and run:
+
+```bash
+python 04_Code/PermMol/extract_feat.py
+```
 
 The extraction settings used in this study are:
 
@@ -90,30 +185,28 @@ batch_size = 256
 feature dimension = 1536
 ```
 
-Run:
+For an input file containing `N` molecules, the generated feature matrix has shape:
 
-```bash
-python extract_feat.py
+```text
+(N, 1536)
 ```
 
-The output is a `.pkl` file containing the PermMol embeddings.
+### ETBR screening with the pretrained PermMol-DNN
 
-### ETBR virtual screening
-
-The ETBR screening script is:
+The screening script is:
 
 ```text
 04_Code/screening/ml_screener_dnn.py
 ```
 
-For PermMol screening, the input CSV and its PermMol feature file should have the same basename, for example:
+The CSV file and its PermMol feature file must have the same basename and contain molecules in the same order, for example:
 
 ```text
 demo_100.csv
 demo_100.pkl
 ```
 
-Run:
+Run the pretrained ETBR model with:
 
 ```bash
 python 04_Code/screening/ml_screener_dnn.py \
@@ -123,61 +216,89 @@ python 04_Code/screening/ml_screener_dnn.py \
     --out_dir reproduction_demo
 ```
 
-The fold-0 ETBR DNN uses:
+The fold-0 PermMol-DNN architecture is:
 
 ```text
-1536 -> 64 -> 128 -> 64 -> 1
+1536 → 64 → 128 → 64 → 1
 ```
 
-with dropout:
+The model output is converted to an activity probability using a sigmoid function. With `--prop 0.5`, compounds with predicted probability ≥ 0.5 are retained.
+
+### Reproduction example
+
+A small inference example is included in:
 
 ```text
-0.20112391936365895
+reproduction_demo/
 ```
 
-A sigmoid transformation is applied to the model output, and compounds with predicted probability ≥ 0.5 are retained.
+The first 100 molecules of the ETBR test set were independently processed with PermMol.
 
-## Reproducibility
-
-The provided fold-0 checkpoint reproduces the following results on the 180-compound independent ETBR test set:
-
-| Metric | Value |
-|---|---:|
-| AUC | 0.988683 |
-| Sensitivity | 0.888889 |
-| Specificity | 0.962963 |
-| Accuracy | 0.933333 |
-| MCC | 0.860753 |
-
-PermMol features were also independently regenerated for the first 100 compounds of the ETBR test set.
+The regenerated feature matrix had shape:
 
 ```text
-Feature shape: (100, 1536)
-Maximum absolute difference: 0.0
-allclose: True
+(100, 1536)
 ```
 
-Using these regenerated features and `model_fold_0.pth`, 33 of the 100 compounds were classified as active at a threshold of 0.5.
+and was identical to the corresponding stored PermMol representations:
 
-## Additional Files
+```text
+maximum absolute difference = 0.0
+allclose = True
+```
 
-Training scripts for the molecular representations and machine-learning models evaluated in the study are available in:
+Using the regenerated features with `model_fold_0.pth` and a threshold of 0.5 gives:
+
+```text
+100 molecules screened
+33 molecules predicted as active
+```
+
+This example verifies the complete inference path from PermMol representation generation to ETBR activity prediction.
+
+## Model training
+
+Training scripts for the molecular representations and machine-learning models evaluated in the study are provided in:
 
 ```text
 04_Code/training/
 ```
 
-Pharmacophore and molecular-docking files are available in:
+The repository contains RF and DNN implementations for the molecular representations evaluated in the benchmark and ETBR experiments.
+
+The pretrained checkpoints can be used directly for reproducing the reported ETBR predictions; retraining is not required for inference.
+
+## Pharmacophore and docking
+
+Files associated with the structure-based stage of the screening campaign are provided in:
 
 ```text
 03_Pharmacophore/
 05_Docking_and_Candidates/
 ```
 
-The complete commercial screening library is not redistributed because of data volume and source/licensing restrictions.
+The energy-based pharmacophore model was generated from the ETBR–Bosentan complex (PDB ID **5XPR**). Pharmacophore validation was performed using 40 known active compounds and 1,893 decoys.
+
+Compounds retained after pharmacophore screening were subjected to hierarchical Glide docking:
+
+```text
+HTVS → SP → XP
+```
+
+followed by expert inspection of the predicted ETBR binding modes.
+
+These stages were performed with Schrödinger software and require an appropriate Schrödinger installation and license for independent reproduction.
+
+## Data availability
+
+This repository provides the processed benchmark datasets, ETBR dataset, molecular representations, trained models, training and screening scripts, pharmacophore files, docking results, and candidate-compound files associated with the study.
+
+The complete commercial screening libraries are not redistributed because of their size and source/licensing restrictions.
 
 ## Citation
 
-If you use the code, processed data, molecular representations, or pretrained models from this repository, please cite:
+If this repository is useful for your research, please cite:
 
 **Discovery of novel endothelin B receptor antagonists through PermMol-enabled multistage virtual screening of ultra-large commercial libraries**
+
+Citation information will be updated after publication.

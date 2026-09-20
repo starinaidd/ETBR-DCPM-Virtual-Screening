@@ -111,7 +111,9 @@ feature dimension = 1536
 
 ### ETBR virtual screening
 
-The pretrained PermMol-DNN model can be applied to compound libraries using:
+The pretrained PermMol-DNN checkpoints can be applied to compound libraries using the screening script. Specify the checkpoint to be used with `--models`.
+
+Example using the fold-0 checkpoint:
 
 ```bash
 python 04_Code/screening/ml_screener_dnn.py \
@@ -119,7 +121,6 @@ python 04_Code/screening/ml_screener_dnn.py \
     --models 02_Trained_Models/ETBR_models/ETB_model/etb_dnn_permmol/model_fold_0.pth \
     --prop 0.5 \
     --out_dir path/to/output
-```
 
 PermMol representations are used as model input, and compounds with predicted probabilities above the specified threshold are retained for subsequent screening.
 

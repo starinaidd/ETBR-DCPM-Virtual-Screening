@@ -140,19 +140,7 @@ The model was validated using 40 known active compounds and 1,893 decoys. Molecu
 
 The pharmacophore model and associated screening files are included in the repository.
 
-### Molecular docking
 
-Pharmacophore-selected compounds were prepared using Schrödinger LigPrep and docked to ETBR with Glide using a hierarchical protocol:
-
-```text
-HTVS → SP → XP
-```
-
-The retention rates were 50%, 40%, and 20% for HTVS, SP, and XP, respectively.
-
-The resulting docking poses were further evaluated based on docking scores, binding geometries, and interactions with key ETBR binding-site residues. The docking results and candidate-selection files are included in the repository.
-
-Reproduction of the pharmacophore and docking stages requires Schrödinger Phase, Glide, and an appropriate Schrödinger license.
 ## Data availability
 
 The repository provides the processed benchmark datasets, ETBR dataset, molecular representations, trained models, training and screening code, pharmacophore files, docking results, and candidate-compound files associated with the study.

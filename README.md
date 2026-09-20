@@ -65,43 +65,43 @@ Random forest (RF) and deep neural network (DNN) models were used for molecular-
 
 ## Usage
 
-The computational workflow consists of molecular-representation benchmarking, ETBR activity modeling, PermMol-based virtual screening, and structure-based screening.
+The computational workflow includes molecular-representation benchmarking, ETBR activity modeling, PermMol-based virtual screening, pharmacophore screening, and molecular docking.
 
 ### Molecular-representation benchmarking
 
-PermMol was benchmarked against five conventional molecular representations — ECFP4, MACCS, PubChem, RDKFingerprint, and Atom Pairs — on seven MoleculeNet molecular-property prediction datasets and 17 MUV virtual-screening tasks.
+PermMol was evaluated together with ECFP4, MACCS, PubChem, RDKFingerprint, and Atom Pairs using random forest (RF) and deep neural network (DNN) models.
 
-Random forest (RF) and deep neural network (DNN) models were used to evaluate the different molecular representations. The training code includes five-fold cross-validation, model evaluation, checkpoint saving, and the task-specific settings used in the study.
-
-The corresponding benchmark datasets, molecular representations, trained models, and evaluation logs are provided in the repository.
+Seven MoleculeNet datasets were used for molecular-property prediction, and 17 MUV tasks were used for virtual-screening evaluation. The corresponding datasets, molecular representations, training scripts, trained models, and evaluation results are included in the repository.
 
 ### ETBR activity modeling
 
-The same RF/DNN framework was applied to the curated ETBR dataset to compare the six molecular representations.
+The six molecular representations were further evaluated on the curated ETBR dataset containing 721 active and 1,082 inactive compounds.
 
-The final ETBR dataset contains 1,803 compounds, with 1,623 compounds used for training and 180 compounds retained as an independent test set.
+The dataset was divided into 1,623 training compounds and 180 independent test compounds. Five-fold RF and DNN models were trained for each molecular representation.
 
-PermMol+DNN showed the best overall performance among the evaluated representation/model combinations. For PermMol, each molecule is represented by a 1,536-dimensional embedding. Five-fold trained ETBR models are provided and can be used directly for downstream prediction and virtual screening.
-
-The reproduced fold-0 performance on the independent ETBR test set is:
+PermMol+DNN showed the best overall performance on the ETBR test set, achieving:
 
 | Metric | Value |
 |---|---:|
-| AUC-ROC | 0.988683 |
-| Sensitivity | 0.888889 |
-| Specificity | 0.962963 |
-| Accuracy | 0.933333 |
-| MCC | 0.860753 |
+| AUC-ROC | 0.988 |
+| Sensitivity | 0.889 |
+| Specificity | 0.963 |
+| Accuracy | 0.933 |
+| MCC | 0.861 |
+
+The trained ETBR models are provided for downstream prediction and virtual screening.
 
 ### PermMol feature extraction
 
-PermMol molecular representations can be generated with the provided feature-extraction script:
+PermMol converts molecular SMILES into 1,536-dimensional molecular representations.
+
+Feature extraction can be performed using:
 
 ```bash
 python 04_Code/PermMol/extract_feat.py
 ```
 
-The settings used in this study were:
+The settings used in this study are:
 
 ```text
 max_len = 301
@@ -109,66 +109,49 @@ batch_size = 256
 feature dimension = 1536
 ```
 
-A reproducibility test on the first 100 compounds of the ETBR test set generated a `(100, 1536)` feature matrix that was identical to the corresponding stored PermMol representations:
-
-```text
-maximum absolute difference = 0.0
-allclose = True
-```
-
 ### ETBR virtual screening
 
-The pretrained PermMol-DNN model can be applied directly to compound libraries using the screening script:
+The pretrained PermMol-DNN model can be applied to compound libraries using:
 
 ```bash
 python 04_Code/screening/ml_screener_dnn.py \
-    --file reproduction_demo/demo_100.csv \
+    --file path/to/input.csv \
     --models 02_Trained_Models/ETBR_models/ETB_model/etb_dnn_permmol/model_fold_0.pth \
     --prop 0.5 \
-    --out_dir reproduction_demo
+    --out_dir path/to/output
 ```
 
-The fold-0 network has the architecture:
+PermMol representations are used as model input, and compounds with predicted probabilities above the specified threshold are retained for subsequent screening.
 
-```text
-1536 → 64 → 128 → 64 → 1
-```
+The same implementation can be used for batch screening of large compound collections.
 
-A sigmoid transformation is applied to the model output, and compounds with a predicted probability greater than or equal to the selected threshold are retained.
+### Pharmacophore screening
 
-For the supplied 100-molecule reproduction example:
+Compounds prioritized by the PermMol-DNN model were further screened using an energy-based pharmacophore model derived from the human ETBR–Bosentan complex (PDB ID: **5XPR**).
 
-```text
-100 molecules screened
-33 molecules predicted as active
-threshold = 0.5
-```
-
-The same screening implementation supports batch processing of large compound collections and was used for the AI-based prioritization stage of the ultra-large virtual-screening campaign.
-
-### Structure-based virtual screening
-
-Compounds prioritized by the PermMol-DNN model were subsequently subjected to energy-based pharmacophore screening and hierarchical molecular docking.
-
-The pharmacophore model was derived from the human ETBR–Bosentan complex (PDB ID: **5XPR**) and contains seven features:
+The final pharmacophore model contains seven features:
 
 ```text
 A D N R R R R
 ```
 
-The model was validated using 40 known active compounds and 1,893 decoys, and compounds matching at least five pharmacophore features were retained.
+The model was validated using 40 known active compounds and 1,893 decoys. Molecules matching at least five pharmacophore features were retained for molecular docking.
 
-The remaining compounds were processed using Schrödinger LigPrep and screened with Glide using a hierarchical protocol:
+The pharmacophore model and associated screening files are included in the repository.
+
+### Molecular docking
+
+Pharmacophore-selected compounds were prepared using Schrödinger LigPrep and docked to ETBR with Glide using a hierarchical protocol:
 
 ```text
 HTVS → SP → XP
 ```
 
-with retention rates of 50%, 40%, and 20%, respectively.
+The retention rates were 50%, 40%, and 20% for HTVS, SP, and XP, respectively.
 
-Docking poses were subsequently inspected according to docking score, binding geometry, and key ETBR interactions. The associated pharmacophore, docking, and candidate-selection files are included in the repository.
+The resulting docking poses were further evaluated based on docking scores, binding geometries, and interactions with key ETBR binding-site residues. The docking results and candidate-selection files are included in the repository.
 
-Reproduction of the structure-based screening stages requires Schrödinger Phase, Glide, and an appropriate Schrödinger license.
+Reproduction of the pharmacophore and docking stages requires Schrödinger Phase, Glide, and an appropriate Schrödinger license.
 ## Data availability
 
 The repository provides the processed benchmark datasets, ETBR dataset, molecular representations, trained models, training and screening code, pharmacophore files, docking results, and candidate-compound files associated with the study.

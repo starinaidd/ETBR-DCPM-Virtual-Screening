@@ -135,4 +135,4 @@ If you use the datasets, molecular representations, trained models, or code from
 Citation details will be updated after publication.
 
 ## License
-This project is licensed under the terms of the MIT license. See LICENSE for additional details.
+

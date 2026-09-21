@@ -21,8 +21,8 @@ environment.yml
 Create the environment with:
 
 ```bash
-conda env create -f name_environment.yml
-conda activate name
+conda env create -f environment.yml
+conda activate etbr-dnn
 ```
 
 ### PermMol environment
@@ -38,7 +38,14 @@ pandas       1.3.4
 RDKit        2023.03.1
 wget         3.2
 ```
+Install PermMol from the provided wheel package:
 
+```bash
+pip install --no-deps 04_Code/PermMol/permmol-0.1.0.dev0-py3-none-any.whl
+pip install wget==3.2
+```
+
+PermMol pretrained checkpoints are downloaded automatically when the model is initialized for the first time.
 ## Data and models
 
 The repository contains the datasets, molecular representations, trained models, and screening files used in the study.

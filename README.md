@@ -12,7 +12,7 @@ PermMol+DNN achieved an AUC-ROC of 0.988 and an MCC of 0.861 on the independent 
 
 ### DNN environment
 
-The environment used for model training. Create the environment with:
+The environment is used for model training. Create the environment with:
 
 ```bash
 conda env create -f environment.yml
@@ -53,16 +53,6 @@ The repository contains the datasets, molecular representations, trained models,
 | PermMol features | 1,536-dimensional molecular representations |
 | Trained models | RF and DNN models for the molecular representations evaluated in the study |
 
-Six molecular representations were evaluated:
-
-- PermMol
-- ECFP4
-- MACCS
-- PubChem
-- RDKFingerprint
-- Atom Pairs
-
-Random forest (RF) and deep neural network (DNN) models were used for MoleculeNet property prediction tasks and seventeen MUV virtual screening tasks. Pretrained ETBR models and the corresponding evaluation results are included in the repository.
 
 ## Usage
 
@@ -70,9 +60,8 @@ The computational workflow includes molecular-representation benchmarking, ETBR 
 
 ### Molecular-representation benchmarking
 
-PermMol was evaluated together with ECFP4, MACCS, PubChem, RDKFingerprint, and Atom Pairs using RF and DNN models.
-
-Seven MoleculeNet datasets were used for molecular-property prediction, and 17 MUV tasks were used for virtual-screening evaluation. The corresponding datasets, molecular representations, training scripts, trained models, and evaluation results are included in the repository.
+PermMol was evaluated together with ECFP4, MACCS, PubChem, RDKFingerprint, and Atom Pairs using RF and DNN models in 
+seven MoleculeNet datasets which were used for molecular-property prediction and 17 MUV tasks which were used for virtual-screening evaluation. The corresponding datasets, molecular representations, training scripts, trained models, and evaluation results are included in the repository.
 
 ### ETBR activity modeling
 
@@ -144,3 +133,6 @@ If you use the datasets, molecular representations, trained models, or code from
 **Discovery of novel endothelin B receptor antagonists through PermMol-enabled multistage virtual screening of ultra-large commercial libraries**
 
 Citation details will be updated after publication.
+
+## License
+This project is licensed under the terms of the MIT license. See LICENSE for additional details.

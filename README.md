@@ -4,21 +4,15 @@ This repository accompanies the study:
 
 **Discovery of novel endothelin B receptor antagonists through PermMol-enabled multistage virtual screening of ultra-large commercial libraries**
 
-We developed a PermMol-enabled multistage virtual-screening strategy for the discovery of endothelin B receptor (ETBR) antagonists. PermMol was first evaluated on molecular-property prediction and virtual-screening benchmarks, and was subsequently combined with a deep neural network for ETBR activity prediction. The resulting model was applied to an ultra-large commercial compound collection, followed by energy-based pharmacophore screening, hierarchical molecular docking, expert inspection, and experimental validation.
+We developed a multistage virtual screening strategy based on PermMol for the discovery of endothelin B receptor (ETBR) antagonists. PermMol was first evaluated on molecular-property prediction and virtual-screening benchmarks, and was subsequently combined with a deep neural network (DNN) for ETBR activity prediction. The resulting model was applied to an ultra-large commercial compound collection, followed by energy-based pharmacophore screening, hierarchical molecular docking, expert inspection, and experimental validation.
 
-PermMol+DNN achieved an AUC-ROC of 0.988 and an MCC of 0.861 on the independent ETBR test set. The complete screening campaign was applied to more than 16 million commercially available compounds and yielded nine compounds for experimental evaluation, five of which showed more than 50% inhibition of ETBR activity at 10 μM.
+PermMol+DNN achieved an AUC-ROC of 0.988 and an MCC of 0.861 on the independent ETBR test set. The complete screening campaign was applied to more than 16 million commercially available compounds and yielded nine compounds for experimental evaluation, five of which showed more than 50% inhibition of ETBR activity at 10 μM.qually to this work.
 
 ## Installation
 
 ### DNN environment
 
-The environment used for model training and inference is provided in:
-
-```text
-environment.yml
-```
-
-Create the environment with:
+The environment used for model training. Create the environment with:
 
 ```bash
 conda env create -f environment.yml
@@ -68,7 +62,7 @@ Six molecular representations were evaluated:
 - RDKFingerprint
 - Atom Pairs
 
-Random forest (RF) and deep neural network (DNN) models were used for molecular-property prediction and virtual-screening experiments. Pretrained ETBR models and the corresponding evaluation results are included in the repository.
+Random forest (RF) and deep neural network (DNN) models were used for MoleculeNet property prediction tasks and seventeen MUV virtual screening tasks. Pretrained ETBR models and the corresponding evaluation results are included in the repository.
 
 ## Usage
 
@@ -76,7 +70,7 @@ The computational workflow includes molecular-representation benchmarking, ETBR 
 
 ### Molecular-representation benchmarking
 
-PermMol was evaluated together with ECFP4, MACCS, PubChem, RDKFingerprint, and Atom Pairs using random forest (RF) and deep neural network (DNN) models.
+PermMol was evaluated together with ECFP4, MACCS, PubChem, RDKFingerprint, and Atom Pairs using RF and DNN models.
 
 Seven MoleculeNet datasets were used for molecular-property prediction, and 17 MUV tasks were used for virtual-screening evaluation. The corresponding datasets, molecular representations, training scripts, trained models, and evaluation results are included in the repository.
 
@@ -108,14 +102,6 @@ Feature extraction can be performed using:
 python 04_Code/PermMol/extract_feat.py
 ```
 
-The settings used in this study are:
-
-```text
-max_len = 301
-batch_size = 256
-feature dimension = 1536
-```
-
 ### ETBR virtual screening
 
 The pretrained PermMol-DNN checkpoints can be applied to compound libraries using the screening script. Specify the checkpoint to be used with `--models`.
@@ -129,13 +115,11 @@ python 04_Code/screening/ml_screener_dnn.py \
     --prop 0.5 \
     --out_dir path/to/output
 ```
-PermMol representations are used as model input, and compounds with predicted probabilities above the specified threshold are retained for subsequent screening.
-
-The same implementation can be used for batch screening of large compound collections.
+PermMol representations are used as model input, and compounds with predicted probabilities above the specified threshold are retained for subsequent screening.The same implementation can be used for batch screening of large compound collections.
 
 ### Pharmacophore screening
 
-Compounds prioritized by the PermMol-DNN model were further screened using an energy-based pharmacophore model derived from the human ETBR–Bosentan complex (PDB ID: **5XPR**).
+Compounds prioritized by the PermMol-DNN model were further screened using an energy-based pharmacophore model derived from the human ETBR–Bosentan complex (PDB ID: 5XPR).
 
 The final pharmacophore model contains seven features:
 

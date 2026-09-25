@@ -1,4 +1,4 @@
-# ETBR-DCPM Virtual Screening
+# DCPM-ETBR Virtual Screening
 
 Code, data, trained models, and structure-based screening resources associated with the study:
 
@@ -6,68 +6,60 @@ Code, data, trained models, and structure-based screening resources associated w
 
 ## Overview
 
-This repository provides the computational resources used to develop and evaluate a multistage virtual-screening workflow for the discovery of novel endothelin B receptor (ETBR) antagonists.
+This repository provides the computational resources for a multistage virtual-screening workflow developed to discover novel endothelin B receptor (ETBR) antagonists.
 
-The workflow integrates:
+The workflow integrates **DCPM**, an in-house small-molecule foundation model, with machine-learning classification, energy-based pharmacophore screening, molecular docking, and experimental validation.
 
-- **DCPM**, an in-house small-molecule foundation model for molecular representation
-- Random forest (RF) and deep neural network (DNN) classifiers
-- Ultra-large commercial-library screening
-- Energy-based pharmacophore screening
-- Hierarchical molecular docking with Glide
-- Expert inspection of receptor–ligand interactions
-- Experimental validation using a FLIPR calcium mobilization assay
+DCPM was pretrained on approximately 100 million unlabeled small molecules and converts standardized molecular SMILES into fixed-length **1 × 1536 molecular embeddings**. These representations are used as input features for downstream molecular-property prediction, ETBR activity classification, and large-scale virtual screening.
 
-DCPM generates a fixed-length **1 × 1536 molecular embedding** from standardized SMILES. These representations are used as input features for downstream molecular-property prediction, ETBR activity classification, and virtual screening.
+DCPM was evaluated on **7 MoleculeNet datasets** and **17 MUV virtual-screening tasks**. For ETBR activity prediction, the DCPM+DNN model achieved an AUC-ROC of **0.988** on the independent test set.
 
-The representation capability of DCPM was evaluated on **7 MoleculeNet datasets** and **17 MUV virtual-screening tasks**. DCPM achieved the best performance on 3 of the 7 MoleculeNet tasks, while DCPM combined with DNN achieved the best performance on 5 of the 17 MUV tasks.
+The complete screening workflow reduced more than **16 million commercially available compounds to 9 compounds for experimental evaluation**.
 
-For ETBR activity prediction, the DCPM+DNN model achieved an AUC-ROC of **0.988** on the independent test set.
-
-The final multistage workflow reduced more than 16 million commercially available compounds to nine compounds for experimental evaluation.
-
-## Study workflow
+## Workflow
 
 ```text
-MoleculeNet / MUV benchmark evaluation
-                  ↓
-          DCPM representation
-              (1536-d)
-                  ↓
-          RF / DNN classifiers
-                  ↓
-       ETBR activity prediction
-                  ↓
-     >16 million commercial compounds
-                  ↓
-             DCPM + DNN
-                  ↓
-          173,435 compounds
-                  ↓
-       e-Pharmacophore screening
-                  ↓
-           25,751 compounds
-                  ↓
-        Glide HTVS → SP → XP
-                  ↓
-             928 compounds
-                  ↓
-          Expert inspection
-                  ↓
-             20 candidates
-                  ↓
-      Commercial availability
-                  ↓
-       9 experimental compounds
-                  ↓
-        FLIPR functional assay
+>16 million commercial compounds
+              │
+              ▼
+          DCPM + DNN
+              │
+              ▼
+        173,435 compounds
+              │
+              ▼
+      e-Pharmacophore
+              │
+              ▼
+         25,751 compounds
+              │
+              ▼
+     Glide HTVS → SP → XP
+              │
+              ▼
+           928 compounds
+              │
+              ▼
+       Expert inspection
+              │
+              ▼
+          20 candidates
+              │
+              ▼
+    Commercial availability
+              │
+              ▼
+      9 compounds tested
+              │
+              ▼
+     FLIPR functional assay
 ```
 
 ## Installation
 
 ### Machine-learning environment
 
-The PyTorch/scikit-learn environment used for model training, evaluation, and downstream screening is provided in `environment.yml`.
+Create the environment from the supplied YAML file:
 
 ```bash
 conda env create -f environment.yml
@@ -76,9 +68,7 @@ conda activate etbr-dnn
 
 ### DCPM feature-extraction environment
 
-DCPM feature extraction requires the provided model package and a compatible MindSpore environment.
-
-The verified feature-extraction environment used during reproducibility testing included:
+The DCPM feature-extraction workflow was verified using:
 
 ```text
 Python       3.9.13
@@ -89,38 +79,22 @@ RDKit        2023.03.1
 wget         3.2
 ```
 
-The DCPM implementation distributed with this repository retains the historical Python package name `permmol` for compatibility with the original computational environment.
-
-Install the provided wheel without modifying the existing MindSpore dependency stack:
+Install the supplied DCPM package:
 
 ```bash
-pip install --no-deps 04_Code/PermMol/permmol-0.1.0.dev0-py3-none-any.whl
+pip install --no-deps 04_Code/DCPM/permmol-0.1.0.dev0-py3-none-any.whl
 pip install wget==3.2
 ```
 
-The original verified feature-extraction environment used Huawei Ascend/CANN. Other MindSpore-compatible hardware configurations may require environment-specific setup.
+A compatible MindSpore environment is required for DCPM feature extraction.
 
-## Data and models
-
-| Resource | Description |
-|---|---|
-| ETBR dataset | 1,803 compounds: 721 active and 1,082 inactive |
-| ETBR split | 1,623 training compounds and 180 independent test compounds |
-| DCPM representations | 1,536-dimensional molecular embeddings |
-| MoleculeNet | BACE, BBBP, HIV, ClinTox, SIDER, Tox21, and ToxCast |
-| MUV | 17 highly imbalanced virtual-screening benchmark tasks |
-| Molecular representations | DCPM, ECFP4, MACCS, PubChem, RDKFingerprint, and Atom Pairs |
-| Prediction models | RF and DNN classifiers |
-| ETBR models | Trained checkpoints for six molecular representations with RF/DNN |
-| Pharmacophore | 5XPR–Bosentan e-pharmacophore model and validation data |
-| Docking | Glide docking results and expert-selected candidates |
-| Candidate compounds | Structures and binding-mode files for prioritized ETBR antagonists |
+## Data and Models
 
 ### ETBR dataset
 
 ETBR activity data were collected from ChEMBL and BindingDB using IC50 as the primary activity endpoint.
 
-Activity labels were defined as:
+Compounds were classified according to:
 
 ```text
 IC50 < 1,000 nM       Active
@@ -128,82 +102,24 @@ IC50 > 10,000 nM      Inactive
 1,000–10,000 nM       Excluded
 ```
 
-After data cleaning, standardization, deduplication, and supplementation of inactive compounds, the final dataset contained:
+The final curated ETBR dataset contains:
 
-```text
-Active:       721
-Inactive:   1,082
-Total:      1,803
-```
-
-The dataset was divided using stratified sampling:
-
-```text
-Training set: 1,623
-Test set:       180
-```
-
-### ETBR model performance
-
-Six molecular representations were evaluated with RF and DNN classifiers.
-
-The DCPM+DNN model was selected for large-scale ETBR virtual screening.
-
-Performance on the ETBR test set:
-
-| Metric | Value |
+| Class | Number of compounds |
 |---|---:|
-| AUC-ROC | 0.988 |
-| Sensitivity | 0.889 |
-| Specificity | 0.963 |
-| Accuracy | 0.933 |
-| MCC | 0.861 |
+| Active | 721 |
+| Inactive | 1,082 |
+| Total | 1,803 |
 
-## Usage
+The final split contains:
 
-### 1. DCPM molecular representation
+| Dataset | Number of compounds |
+|---|---:|
+| Training set | 1,623 |
+| Test set | 180 |
 
-DCPM converts standardized SMILES into 1,536-dimensional molecular embeddings.
+### Benchmark datasets
 
-The feature-extraction script is:
-
-```text
-04_Code/PermMol/extract_feat.py
-```
-
-The input CSV files must contain a column named:
-
-```text
-smiles
-```
-
-The script processes CSV files under `./csv/` and writes same-basename pickle feature files to `./sar/feats/`.
-
-Example:
-
-```bash
-mkdir -p dcpm_feature_run/csv
-mkdir -p dcpm_feature_run/sar/feats
-
-cp input.csv dcpm_feature_run/csv/
-
-cd dcpm_feature_run
-python ../04_Code/PermMol/extract_feat.py
-```
-
-The resulting feature matrix has shape:
-
-```text
-N × 1536
-```
-
-where `N` is the number of molecules.
-
-The pretrained DCPM parameters required for inference are initialized through the DCPM/legacy `permmol` API.
-
-### 2. MoleculeNet benchmark
-
-Seven MoleculeNet classification datasets are provided:
+Seven MoleculeNet classification datasets were used:
 
 ```text
 BACE
@@ -215,9 +131,12 @@ Tox21
 ToxCast
 ```
 
-These datasets were used to compare DCPM with five conventional molecular representations:
+The MUV benchmark contains **17 highly imbalanced virtual-screening tasks**.
+
+Six molecular representations were evaluated:
 
 ```text
+DCPM
 ECFP4
 MACCS
 PubChem
@@ -225,78 +144,199 @@ RDKFingerprint
 Atom Pairs
 ```
 
-RF and DNN classifiers were evaluated for molecular-property prediction.
+Both random forest (**RF**) and deep neural network (**DNN**) classifiers were investigated.
 
-DCPM achieved the best performance on **BBBP, ClinTox, and ToxCast**, corresponding to 3 of the 7 benchmark tasks.
+### ETBR prediction performance
 
-Training scripts for the different representations and classifiers are provided under `04_Code/training/`.
+The DCPM+DNN model was selected as the primary activity prediction model for subsequent ETBR virtual screening.
 
-### 3. MUV virtual-screening benchmark
+Performance on the independent ETBR test set:
 
-The repository contains all **17 MUV tasks** used to evaluate molecular representations under highly imbalanced virtual-screening conditions.
+| Metric | Value |
+|---|---:|
+| AUC-ROC | 0.988 |
+| Sensitivity | 0.889 |
+| Specificity | 0.963 |
+| Accuracy | 0.933 |
+| MCC | 0.861 |
 
-DCPM representations were evaluated using both RF and DNN classifiers together with the five conventional molecular representations.
+## Usage
 
-The DCPM+DNN combination achieved the best AUC-ROC performance on **5 of the 17 MUV tasks**.
+### DCPM feature extraction
 
-The benchmark datasets, molecular representations, historical trained checkpoints, and evaluation logs are provided with the repository.
+DCPM converts standardized SMILES into **1536-dimensional molecular representations**.
 
-### 4. ETBR activity modeling
+Input CSV files must contain a column named:
 
-The ETBR dataset was evaluated using six molecular representations with RF and DNN classifiers.
+```text
+smiles
+```
 
-RF hyperparameters were optimized using the Tree-structured Parzen Estimator implemented in Hyperopt.
+The feature-extraction script reads CSV files from `csv/` and writes pickle feature files to `sar/feats/`.
 
-The DNN consists of three fully connected hidden layers with ReLU activation and dropout regularization. Learning rate, dropout rate, and hidden-layer dimensions were optimized using Hyperopt.
+```bash
+cd 04_Code/DCPM
 
-Five-fold cross-validation was used during model development.
+mkdir -p csv
+mkdir -p sar/feats
 
-The DCPM+DNN combination was selected as the primary ETBR prediction model for subsequent large-library screening.
+cp <input.csv> csv/
 
-DCPM-related historical scripts and model directories may retain `permmol` in their filenames. These names are preserved to maintain compatibility with the original training and inference workflow.
+python extract_feat.py
+```
 
-### 5. ETBR virtual screening
+For an input file:
 
-The initial commercial screening library contained more than **16 million compounds** collected from ChemDiv, Specs, and TopScience.
+```text
+csv/example.csv
+```
 
-All compounds were standardized and deduplicated before DCPM representation generation.
+the corresponding DCPM representation is written as:
 
-The DCPM+DNN classifier was applied using a probability threshold of:
+```text
+sar/feats/example.pkl
+```
+
+with feature dimension:
+
+```text
+N × 1536
+```
+
+where `N` is the number of molecules.
+
+---
+
+### ETBR DCPM+DNN model
+
+The DCPM representations of the ETBR training and test sets are provided with the repository.
+
+Run the DCPM+DNN training workflow from the repository root:
+
+```bash
+python -u 04_Code/training/dnn_dcpm.py
+```
+
+The DNN contains three fully connected hidden layers with ReLU activation and dropout regularization.
+
+Hyperparameters including learning rate, dropout rate, and hidden-layer dimensions are optimized using Hyperopt.
+
+Five-fold model development generates checkpoints of the form:
+
+```text
+model_fold_0.pth
+model_fold_1.pth
+model_fold_2.pth
+model_fold_3.pth
+model_fold_4.pth
+```
+
+---
+
+### ETBR ECFP4+RF baseline
+
+A conventional molecular-fingerprint baseline can be reproduced using ECFP4 and random forest:
+
+```bash
+python -u 04_Code/training/rf_ecfp4.py
+```
+
+ECFP4 fingerprints are generated directly from molecular SMILES and used as input to the RF classifier.
+
+---
+
+### MoleculeNet benchmark
+
+DCPM was evaluated on seven MoleculeNet molecular-property prediction datasets and compared with conventional molecular fingerprints.
+
+A representative verified DCPM+DNN workflow using the **BACE** dataset can be run with:
+
+```bash
+python -u 04_Code/training/dnn_dcpm_bace.py
+```
+
+Across the seven MoleculeNet tasks, DCPM achieved the best performance on:
+
+```text
+BBBP
+ClinTox
+ToxCast
+```
+
+corresponding to **3 of the 7 benchmark tasks**.
+
+---
+
+### MUV virtual-screening benchmark
+
+The repository contains all **17 MUV benchmark tasks** used to evaluate molecular representations under highly imbalanced virtual-screening conditions.
+
+A representative verified DCPM+DNN workflow using **MUV_859** can be run with:
+
+```bash
+python -u 04_Code/training/dnn_dcpm_muv859.py
+```
+
+Across the 17 MUV tasks, the DCPM+DNN combination achieved the best AUC-ROC performance on **5 tasks**.
+
+---
+
+### ETBR large-scale virtual screening
+
+The initial screening library contained more than **16 million commercially available compounds** collected from:
+
+```text
+ChemDiv
+Specs
+TopScience
+```
+
+All compounds were standardized, deduplicated, and converted into DCPM molecular representations.
+
+The optimized DCPM+DNN model was applied using:
 
 ```text
 P(active) > 0.5
 ```
 
-This stage retained:
+as the screening threshold.
+
+This step retained:
 
 ```text
 173,435 compounds
 ```
 
-The screening scripts are provided under:
+The DNN screening script is provided under:
 
 ```text
 04_Code/screening/
 ```
 
-A DNN screening run can be invoked with:
+Example:
 
 ```bash
 python 04_Code/screening/ml_screener_dnn.py \
-    --file <input_file> \
-    --models <DCPM_DNN_checkpoint> \
+    --file <input.csv> \
+    --models <model_checkpoint.pth> \
     --prop 0.5 \
     --smiles_col smiles \
     --out_dir <output_directory>
 ```
 
-The model architecture and input representation used by the screening script must match the selected checkpoint. For DCPM-based ETBR screening, the model input dimension is **1536**.
+A single trained checkpoint is specified through `--models`.
 
-The repository contains five ETBR DNN checkpoints generated during model development. A specific checkpoint can be supplied through `--models`; for example, `model_fold_0.pth` can be used for a single-checkpoint screening run.
+For example:
 
-### 6. e-Pharmacophore screening
+```text
+model_fold_0.pth
+```
 
-The energy-based pharmacophore model was constructed from the human ETBR–Bosentan complex:
+can be used for a single-checkpoint screening run.
+
+## e-Pharmacophore Screening
+
+An energy-based pharmacophore model was constructed from the crystal structure of human ETBR in complex with Bosentan:
 
 ```text
 PDB ID:       5XPR
@@ -304,53 +344,78 @@ Ligand:       Bosentan
 Resolution:   3.60 Å
 ```
 
-The selected pharmacophore contains seven features:
+The final pharmacophore contains seven features:
 
 ```text
 A D N R R R R
 ```
 
-corresponding to one hydrogen-bond acceptor, one hydrogen-bond donor, one negative-charge feature, and four aromatic-ring features.
+corresponding to:
 
-The validation dataset contains:
+```text
+1 hydrogen-bond acceptor
+1 hydrogen-bond donor
+1 negative-charge feature
+4 aromatic-ring features
+```
+
+The pharmacophore validation dataset contains:
 
 ```text
 40 active compounds
 1,893 decoys
 ```
 
-Compounds matching at least **5 of the 7 pharmacophore features** were retained.
+The model retaining compounds matching at least **5 of the 7 pharmacophore features** was selected for large-scale screening.
 
-The validated 5-of-7 model achieved:
+Validation performance:
+
+| Metric | Value |
+|---|---:|
+| EF1% | 10.17 |
+| BEDROC | 0.23 |
+| AUAC | 0.55 |
+
+Application of the pharmacophore model reduced the DCPM+DNN screening set from:
 
 ```text
-EF1%    = 10.17
-BEDROC  = 0.23
-AUAC    = 0.55
-```
-
-Application of the pharmacophore filter reduced the DCPM+DNN candidates from 173,435 to:
-
-```text
+173,435
+   ↓
 25,751 compounds
 ```
 
-### 7. Molecular docking
+The pharmacophore model, prepared receptor and ligand, receptor grid, redocking results, feature table, and validation datasets are provided under:
 
-Structure-based screening was performed using Schrödinger Glide with a hierarchical protocol:
+```text
+03_Pharmacophore/
+```
+
+## Molecular Docking
+
+The 25,751 compounds retained after pharmacophore screening were subjected to hierarchical molecular docking using **Schrödinger Glide**.
+
+The docking protocol consisted of:
 
 ```text
 HTVS
  ↓ retain 50%
+
 SP
  ↓ retain 40%
+
 XP
  ↓ retain 20%
 ```
 
-Following docking and XP-score-based prioritization, **928 compounds** were retained for further inspection.
+After hierarchical docking and XP-score-based prioritization:
 
-Expert inspection focused on interactions with key ETBR residues including:
+```text
+928 compounds
+```
+
+were retained for further inspection.
+
+Expert inspection focused on interactions with key ETBR residues:
 
 ```text
 Asp154
@@ -361,15 +426,29 @@ His340
 Arg343
 ```
 
-Hydrogen bonding, ionic interactions, π–π stacking, and overall binding-mode compatibility were considered during prioritization.
+Hydrogen bonding, ionic interactions, π–π stacking, and overall receptor–ligand binding compatibility were considered during compound prioritization.
 
-Twenty compounds were retained after expert inspection, and nine commercially available compounds were selected for experimental testing.
+This process yielded:
+
+```text
+928 docked compounds
+        ↓
+20 expert-selected candidates
+        ↓
+9 commercially available compounds
+```
+
+Docking results, expert-selected compounds, and binding-mode files are provided under:
+
+```text
+05_Docking_and_Candidates/
+```
 
 Schrödinger Maestro/Glide is proprietary software and is not distributed with this repository.
 
-## Experimental validation
+## Experimental Validation
 
-Nine selected compounds were evaluated using a FLIPR calcium mobilization assay in cells expressing human ETBR.
+Nine selected compounds were evaluated for ETBR antagonistic activity using a **FLIPR calcium mobilization assay**.
 
 Five compounds showed more than 50% inhibition of ET-1-induced calcium signaling at 10 μM:
 
@@ -381,13 +460,13 @@ C8
 C9
 ```
 
-This corresponds to an experimental hit rate of:
+The experimental hit rate was:
 
 ```text
 55.6%
 ```
 
-Concentration–response measurements yielded:
+Concentration-response experiments produced the following IC50 values:
 
 | Compound | IC50 (μM) |
 |---|---:|
@@ -398,42 +477,35 @@ Concentration–response measurements yielded:
 | C9 | 2.78 |
 | BQ-788 | 0.0625 |
 
-C8 showed the strongest activity among the newly identified compounds, reaching submicromolar potency with an IC50 of **0.66 μM**.
+Among the newly identified compounds, **C8 showed the strongest ETBR antagonistic activity**, reaching the submicromolar range with an IC50 of **0.66 μM**.
 
-## Naming convention
+## Available Resources
 
-The molecular foundation model is referred to as **DCPM** in the publication and throughout the scientific description of this repository.
+| Resource | Content |
+|---|---|
+| ETBR activity data | Curated active/inactive dataset |
+| ETBR train/test split | 1,623 training and 180 test compounds |
+| DCPM representations | 1536-dimensional molecular embeddings |
+| MoleculeNet | Seven molecular-property benchmark datasets |
+| MUV | Seventeen virtual-screening benchmark tasks |
+| Trained models | RF and DNN checkpoints |
+| Evaluation results | Model evaluation logs |
+| DCPM feature extraction | DCPM package and extraction script |
+| Pharmacophore | 5XPR-Bosentan e-pharmacophore and validation data |
+| Molecular docking | Glide docking outputs |
+| Candidate compounds | Expert-selected and experimentally tested compounds |
+| Binding-mode analysis | Docking poses and interaction analysis of active hits |
 
-Some archived implementation files retain the earlier internal name **PermMol**, including:
+## Data Availability
 
-```text
-permmol-0.1.0.dev0-py3-none-any.whl
-Python import: permmol
-*_permmol.py
-*_permmol.pkl
-historical model/checkpoint directories
-```
+The repository provides the curated ETBR datasets, benchmark datasets, molecular representations, trained models, model evaluation results, feature-extraction code, pharmacophore resources, docking results, candidate compounds, and analysis scripts associated with this study.
 
-These legacy names are intentionally preserved to maintain compatibility with the original computational workflow and trained model artifacts. They refer to the same model implementation used under the publication name DCPM.
-
-## Data availability
-
-This repository provides the curated ETBR datasets, benchmark datasets, molecular representations, trained model checkpoints, evaluation logs, DCPM feature-extraction resources, pharmacophore files, docking results, candidate-compound files, and analysis scripts used in the study.
-
-The complete >16-million-compound commercial screening libraries from ChemDiv, Specs, and TopScience are **not redistributed** because of their size and source/licensing restrictions.
-
-Large intermediate files that can be regenerated from the supplied data and code may also be omitted.
-
-The DCPM distribution included here consists of the feature-extraction interface and the legacy installation wheel required for representation generation; it should not be interpreted as a complete source-code release of the underlying foundation model.
+The complete commercial compound libraries containing more than **16 million compounds** from ChemDiv, Specs, and TopScience are not redistributed because of their size and source/licensing restrictions.
 
 ## Citation
 
-If you use the data, models, or workflow provided in this repository, please cite:
+If you use the data, models, or workflow provided in this repository, please cite the corresponding publication.
 
 ```text
 Citation information will be added upon publication.
 ```
-
-## License
-
-License information will be added according to the final release policy for the publication repository.

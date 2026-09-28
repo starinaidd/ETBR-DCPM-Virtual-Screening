@@ -44,7 +44,7 @@ wget         3.2
 Install the supplied DCPM package:
 
 ```bash
-pip install --no-deps 04_Code/DCPM/permmol-0.1.0.dev0-py3-none-any.whl
+pip install --no-deps 04_Code/DCPM/DCPM-0.1.0.dev0-py3-none-any.whl
 pip install wget==3.2
 ```
 
@@ -218,120 +218,6 @@ The final pharmacophore contains seven features:
 ```text
 A D N R R R R
 ```
-
-The model retaining compounds matching at least **5 of the 7 pharmacophore features** was selected for large-scale screening.
-
-The pharmacophore model, prepared receptor and ligand, receptor grid, redocking results, feature table, and validation datasets are provided under:
-
-```text
-03_Pharmacophore/
-```
-
-## Molecular Docking
-
-The 25,751 compounds retained after pharmacophore screening were subjected to hierarchical molecular docking using **Schrödinger Glide**.
-
-The docking protocol consisted of:
-
-```text
-HTVS
- ↓ retain 50%
-
-SP
- ↓ retain 40%
-
-XP
- ↓ retain 20%
-```
-
-After hierarchical docking and XP-score-based prioritization:
-
-```text
-928 compounds
-```
-
-were retained for further inspection.
-
-Expert inspection focused on interactions with key ETBR residues:
-
-```text
-Asp154
-Lys182
-Phe240
-Lys273
-His340
-Arg343
-```
-
-Hydrogen bonding, ionic interactions, π–π stacking, and overall receptor–ligand binding compatibility were considered during compound prioritization.
-
-This process yielded:
-
-```text
-928 docked compounds
-        ↓
-20 expert-selected candidates
-        ↓
-9 commercially available compounds
-```
-
-Docking results, expert-selected compounds, and binding-mode files are provided under:
-
-```text
-05_Docking_and_Candidates/
-```
-
-Schrödinger Maestro/Glide is proprietary software and is not distributed with this repository.
-
-## Experimental Validation
-
-Nine selected compounds were evaluated for ETBR antagonistic activity using a **FLIPR calcium mobilization assay**.
-
-Five compounds showed more than 50% inhibition of ET-1-induced calcium signaling at 10 μM:
-
-```text
-C1
-C2
-C7
-C8
-C9
-```
-
-The experimental hit rate was:
-
-```text
-55.6%
-```
-
-Concentration-response experiments produced the following IC50 values:
-
-| Compound | IC50 (μM) |
-|---|---:|
-| C1 | 3.67 |
-| C2 | 16.06 |
-| C7 | 36.28 |
-| C8 | **0.66** |
-| C9 | 2.78 |
-| BQ-788 | 0.0625 |
-
-Among the newly identified compounds, **C8 showed the strongest ETBR antagonistic activity**, reaching the submicromolar range with an IC50 of **0.66 μM**.
-
-## Available Resources
-
-| Resource | Content |
-|---|---|
-| ETBR activity data | Curated active/inactive dataset |
-| ETBR train/test split | 1,623 training and 180 test compounds |
-| DCPM representations | 1536-dimensional molecular embeddings |
-| MoleculeNet | Seven molecular-property benchmark datasets |
-| MUV | Seventeen virtual-screening benchmark tasks |
-| Trained models | RF and DNN checkpoints |
-| Evaluation results | Model evaluation logs |
-| DCPM feature extraction | DCPM package and extraction script |
-| Pharmacophore | 5XPR-Bosentan e-pharmacophore and validation data |
-| Molecular docking | Glide docking outputs |
-| Candidate compounds | Expert-selected and experimentally tested compounds |
-| Binding-mode analysis | Docking poses and interaction analysis of active hits |
 
 ## Data Availability
 

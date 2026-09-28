@@ -16,44 +16,6 @@ DCPM was evaluated on **7 MoleculeNet datasets** and **17 MUV virtual-screening 
 
 The complete screening workflow reduced more than **16 million commercially available compounds to 9 compounds for experimental evaluation**.
 
-## Workflow
-
-```text
->16 million commercial compounds
-              │
-              ▼
-          DCPM + DNN
-              │
-              ▼
-        173,435 compounds
-              │
-              ▼
-      e-Pharmacophore
-              │
-              ▼
-         25,751 compounds
-              │
-              ▼
-     Glide HTVS → SP → XP
-              │
-              ▼
-           928 compounds
-              │
-              ▼
-       Expert inspection
-              │
-              ▼
-          20 candidates
-              │
-              ▼
-    Commercial availability
-              │
-              ▼
-      9 compounds tested
-              │
-              ▼
-     FLIPR functional assay
-```
 
 ## Installation
 
@@ -166,12 +128,6 @@ Performance on the independent ETBR test set:
 
 DCPM converts standardized SMILES into **1536-dimensional molecular representations**.
 
-Input CSV files must contain a column named:
-
-```text
-smiles
-```
-
 The feature-extraction script reads CSV files from `csv/` and writes pickle feature files to `sar/feats/`.
 
 ```bash
@@ -184,28 +140,6 @@ cp <input.csv> csv/
 
 python extract_feat.py
 ```
-
-For an input file:
-
-```text
-csv/example.csv
-```
-
-the corresponding DCPM representation is written as:
-
-```text
-sar/feats/example.pkl
-```
-
-with feature dimension:
-
-```text
-N × 1536
-```
-
-where `N` is the number of molecules.
-
----
 
 ### ETBR DCPM+DNN model
 
@@ -221,17 +155,6 @@ The DNN contains three fully connected hidden layers with ReLU activation and dr
 
 Hyperparameters including learning rate, dropout rate, and hidden-layer dimensions are optimized using Hyperopt.
 
-Five-fold model development generates checkpoints of the form:
-
-```text
-model_fold_0.pth
-model_fold_1.pth
-model_fold_2.pth
-model_fold_3.pth
-model_fold_4.pth
-```
-
----
 
 ### ETBR ECFP4+RF baseline
 
@@ -255,16 +178,6 @@ A representative verified DCPM+DNN workflow using the **BACE** dataset can be ru
 python -u 04_Code/training/dnn_dcpm_bace.py
 ```
 
-Across the seven MoleculeNet tasks, DCPM achieved the best performance on:
-
-```text
-BBBP
-ClinTox
-ToxCast
-```
-
-corresponding to **3 of the 7 benchmark tasks**.
-
 ---
 
 ### MUV virtual-screening benchmark
@@ -277,35 +190,9 @@ A representative verified DCPM+DNN workflow using **MUV_859** can be run with:
 python -u 04_Code/training/dnn_dcpm_muv859.py
 ```
 
-Across the 17 MUV tasks, the DCPM+DNN combination achieved the best AUC-ROC performance on **5 tasks**.
-
 ---
 
 ### ETBR large-scale virtual screening
-
-The initial screening library contained more than **16 million commercially available compounds** collected from:
-
-```text
-ChemDiv
-Specs
-TopScience
-```
-
-All compounds were standardized, deduplicated, and converted into DCPM molecular representations.
-
-The optimized DCPM+DNN model was applied using:
-
-```text
-P(active) > 0.5
-```
-
-as the screening threshold.
-
-This step retained:
-
-```text
-173,435 compounds
-```
 
 The DNN screening script is provided under:
 
@@ -324,25 +211,7 @@ python 04_Code/screening/ml_screener_dnn.py \
     --out_dir <output_directory>
 ```
 
-A single trained checkpoint is specified through `--models`.
-
-For example:
-
-```text
-model_fold_0.pth
-```
-
-can be used for a single-checkpoint screening run.
-
 ## e-Pharmacophore Screening
-
-An energy-based pharmacophore model was constructed from the crystal structure of human ETBR in complex with Bosentan:
-
-```text
-PDB ID:       5XPR
-Ligand:       Bosentan
-Resolution:   3.60 Å
-```
 
 The final pharmacophore contains seven features:
 
@@ -350,39 +219,7 @@ The final pharmacophore contains seven features:
 A D N R R R R
 ```
 
-corresponding to:
-
-```text
-1 hydrogen-bond acceptor
-1 hydrogen-bond donor
-1 negative-charge feature
-4 aromatic-ring features
-```
-
-The pharmacophore validation dataset contains:
-
-```text
-40 active compounds
-1,893 decoys
-```
-
 The model retaining compounds matching at least **5 of the 7 pharmacophore features** was selected for large-scale screening.
-
-Validation performance:
-
-| Metric | Value |
-|---|---:|
-| EF1% | 10.17 |
-| BEDROC | 0.23 |
-| AUAC | 0.55 |
-
-Application of the pharmacophore model reduced the DCPM+DNN screening set from:
-
-```text
-173,435
-   ↓
-25,751 compounds
-```
 
 The pharmacophore model, prepared receptor and ligand, receptor grid, redocking results, feature table, and validation datasets are provided under:
 

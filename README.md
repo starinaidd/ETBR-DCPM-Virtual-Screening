@@ -16,7 +16,6 @@ DCPM was evaluated on **7 MoleculeNet datasets** and **17 MUV virtual-screening 
 
 The complete screening workflow reduced more than **16 million commercially available compounds to 9 compounds for experimental evaluation**.
 
-
 ## Installation
 
 ### Machine-learning environment
@@ -66,7 +65,7 @@ IC50 > 10,000 nM      Inactive
 
 The final curated ETBR dataset contains:
 
-| Class | Number of compounds |
+| **Class** | **Number of compounds** |
 |---|---:|
 | Active | 721 |
 | Inactive | 1,082 |
@@ -74,7 +73,7 @@ The final curated ETBR dataset contains:
 
 The final split contains:
 
-| Dataset | Number of compounds |
+| **Dataset** | **Number of compounds** |
 |---|---:|
 | Training set | 1,623 |
 | Test set | 180 |
@@ -114,7 +113,7 @@ The DCPM+DNN model was selected as the primary activity prediction model for sub
 
 Performance on the independent ETBR test set:
 
-| Metric | Value |
+| **Metric** | **Value** |
 |---|---:|
 | AUC-ROC | 0.988 |
 | Sensitivity | 0.889 |
@@ -128,7 +127,9 @@ Performance on the independent ETBR test set:
 
 DCPM converts standardized SMILES into **1536-dimensional molecular representations**.
 
-The feature-extraction script reads CSV files from `csv/` and writes pickle feature files to `sar/feats/`.
+Input CSV files must contain a column named `smiles`.
+
+The feature-extraction script reads CSV files from `csv/` and writes the corresponding DCPM representations to `sar/feats/`.
 
 ```bash
 cd 04_Code/DCPM
@@ -136,7 +137,7 @@ cd 04_Code/DCPM
 mkdir -p csv
 mkdir -p sar/feats
 
-cp <input.csv> csv/
+cp /path/to/input.csv csv/
 
 python extract_feat.py
 ```
@@ -155,7 +156,6 @@ The DNN contains three fully connected hidden layers with ReLU activation and dr
 
 Hyperparameters including learning rate, dropout rate, and hidden-layer dimensions are optimized using Hyperopt.
 
-
 ### ETBR ECFP4+RF baseline
 
 A conventional molecular-fingerprint baseline can be reproduced using ECFP4 and random forest:
@@ -166,31 +166,25 @@ python -u 04_Code/training/rf_ecfp4.py
 
 ECFP4 fingerprints are generated directly from molecular SMILES and used as input to the RF classifier.
 
----
-
 ### MoleculeNet benchmark
 
 DCPM was evaluated on seven MoleculeNet molecular-property prediction datasets and compared with conventional molecular fingerprints.
 
-A representative verified DCPM+DNN workflow using the **BACE** dataset can be run with:
+For example, the DCPM+DNN workflow for the **BACE** dataset can be run with:
 
 ```bash
 python -u 04_Code/training/dnn_dcpm_bace.py
 ```
 
----
-
 ### MUV virtual-screening benchmark
 
 The repository contains all **17 MUV benchmark tasks** used to evaluate molecular representations under highly imbalanced virtual-screening conditions.
 
-A representative verified DCPM+DNN workflow using **MUV_859** can be run with:
+For example, the DCPM+DNN workflow for **MUV_859** can be run with:
 
 ```bash
 python -u 04_Code/training/dnn_dcpm_muv859.py
 ```
-
----
 
 ### ETBR large-scale virtual screening
 
@@ -200,24 +194,38 @@ The DNN screening script is provided under:
 04_Code/screening/
 ```
 
+After DCPM representation generation, compounds can be screened using a trained ETBR DCPM+DNN checkpoint.
+
 Example:
 
 ```bash
 python 04_Code/screening/ml_screener_dnn.py \
-    --file <input.csv> \
-    --models <model_checkpoint.pth> \
+    --file /path/to/input.csv \
+    --models /path/to/model_fold_0.pth \
     --prop 0.5 \
     --smiles_col smiles \
-    --out_dir <output_directory>
+    --out_dir ./screening_output
 ```
+
+The screening threshold used in the study was `P(active) > 0.5`.
 
 ## e-Pharmacophore Screening
 
-The final pharmacophore contains seven features:
+The e-pharmacophore model and validation files are provided under:
 
 ```text
-A D N R R R R
+03_Pharmacophore/
 ```
+
+The model contains seven pharmacophore features:
+
+```text
+ADNRRRR
+```
+
+Compounds matching at least **5 of the 7 features** were retained in the study.
+
+The supplied pharmacophore files can be inspected and applied using Schrödinger Maestro/Phase.
 
 ## Data Availability
 
